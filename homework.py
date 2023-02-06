@@ -34,18 +34,44 @@
 # print(f"Количество слов: {col}")
 
 #  --------homework17-------------
-import re
-# ---------1--------
-# def validate_name(name):
-#     return re.findall(r'^[a-z\d@_-]{6,18}$', name, re.IGNORECASE)
+# import re
+# # ---------1--------
+# # def validate_name(name):
+# #     return re.findall(r'^[a-z\d@_-]{6,18}$', name, re.IGNORECASE)
+# #
+# #
+# # print(validate_name('my-p@ssw0rd'))
 #
-#
-# print(validate_name('my-p@ssw0rd'))
+# # ---------2--------
+# s = "В июне 2021 года, 02/06/2021, 05/06/2021, 14/06/2021, были зафиксированы максимумы ежемесячных осадков."
+# reg = r"[0-3][0-9]/[0-1][0-9]/\d{4}"
+# print(re.findall(reg, s))
 
-# ---------2--------
-s = "В июне 2021 года, 02/06/2021, 05/06/2021, 14/06/2021, были зафиксированы максимумы ежемесячных осадков."
-reg = r"[0-3][0-9]/[0-1][0-9]/\d{4}"
-print(re.findall(reg, s))
+#  --------homework18-------------
+# import re
+#  ---------1--------
+
+# s = "+7 499 456-45-78, +7 4994564578, 7 (499) 456 45 78, 7 (499) 456-45-78"
+# r = r"\+?(?:7|\d){1}\s?\(?\d{3}\)?\s?\d{3}\s?\-?\d{2}\s?\-?\d{2}"
+# print(re.findall(r, s))
+
+
+#  ---------2--------
+
+def sumNumbers(x):
+    if x == []:
+        return 0
+    else:
+        count = sumNumbers(x[1:])
+        if x[0] < 0:
+            count = count + 1
+        return count
+
+
+s = [-2, 3, 8, -11, -4, 6]
+n = sumNumbers(s)
+print("n = ", n)
+
 
 
 
