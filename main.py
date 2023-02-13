@@ -3354,14 +3354,450 @@ import re
 
 # def to_str(n, base):  # 7
 #     convert = "0123456789ABCDEF"
-#     if n < base:
-#         return convert[n]  # '7'
+#     if n < 0:
+#         covert = convert[0] + convert[:0:-1]
+#         if n * (-1) < base:
+#             return "-" + convert[n]
+#         else:
+#             return to_str((n // base) + 1, base) + convert[(n % base)]
 #     else:
-#         return to_str(n // base, base) + convert[n % base]  # '9' '6'
+#         if n < base:
+#             return convert[n]
+#         else:
+#             return to_str(n // base, base) + convert[n % base]  # '9' '6'
 #
 #
 # print(to_str(254, 16))
 #
-# print(int('FF', 16))
+# # print(hex(-255))
+# # print(int('FF', 16))
+#
+# #  _________________
 
-#  _________________
+
+# def negative(a):
+#     if not a:
+#         return 0
+#     else:
+#         count = negative(a[1:])
+#         if a[0] < 0:
+#             count += 1
+#         return count
+#
+#
+# lst = [-2, 3, 8, -11, -4, 6]
+# print(lst)
+# n = negative(lst)
+# print(n)
+
+# def validate_phone(number):
+#     reg = r"^\+?7\s*\(?\d{3}\)?\s*[\d\s-]{7,9}$"
+#     return re.search(reg, number).group()
+#
+#
+# print(validate_phone('+7 499 456-45-78'))
+# print(validate_phone('+7 4994564578'))
+# print(validate_phone('7 (499) 456 45 78'))
+# print(validate_phone('7 (499) 456-45-78'))
+
+
+# names = ["Adam", ["Bob", ["Chat", "Cat"], "Bard", "Bert"], "Alex", ["Bea", "Bill"], "Ann"]
+# # print(names[0])
+# # print(names[1])
+# # print(isinstance(names[0], str))
+# # print(isinstance(names[1], list))
+# # print(names[1][1][0])
+# # print(isinstance((names[1][1][0], list)))
+# # print(len(names))
+# print(names)
+#
+#
+# def count_items(item_list):
+#     count = 0
+#     for item in item_list:
+#         if isinstance(item, list):
+#             count += count_items(item)
+#         else:
+#             count += 1
+#     return count
+#
+#
+# print(count_items(names))
+
+# names = ["Adam", ["Bob", ["Chat", "Cat"], "Bard", "Bert"], "Alex", ["Bea", "Bill"], "Ann"]
+#
+#
+# def count_items(item_list):
+#     count = 0
+#     for name in item_list:
+#         if isinstance(name, str):
+#             count += 1
+#         elif isinstance(name, list):
+#             for n in name:
+#                 if isinstance(n, str):
+#                     count += 1
+#                 elif isinstance(n, list):
+#                     count += len(n)
+#     print(count)
+#
+#
+# count_items(names)
+
+# names = ["Adam", ["Bob", ["Chat", "Cat"], "Bard", "Bert"], "Alex", ["Bea", "Bill"], "Ann"]
+# print(names)
+#
+#
+# def count_items(item_list):
+#     count = 0
+#     stack - []
+#     current_list = item_list
+#     i = 0
+#     while True:
+#         if i == len(current_list):
+#             if current_list == item_list:
+#                 return count
+#             else:
+#                 current_list, i = stack.pop()
+#                 i += 1
+#         if isinstance(current_list[i], list):
+#             stack.append([current_list, i])
+#             current_list = current_list[i]
+#             i = 0
+#         count += 1
+#         i += 1
+#
+#
+# print(count_items(names))
+
+# names = ["Adam", ["Bob", ["Chet", "Cat"], "Bard", "Bert"], "Alex", ["Bea", "Bill"], "Ann"]
+# print(names)
+#
+#
+# def union(s):
+#     if not s:
+#         return s
+#     if isinstance(s[0], list):
+#         return union(s[0]) + union(s[1:])
+#     return s[0:1] + union(s[1:])  # ["Adam", "Bob", "Chet", "Cat"]
+#
+#
+# print(union(names))
+
+# def remove(text):
+#     if not text:
+#         return ""
+#     if text[0] == "\t" or text[0] == " " or text[0] == "$":
+#         return remove(text[1:])
+#     else:
+#         return text[0] + remove(text[1:])
+#
+#
+# print(remove(" $Hello\tWorld!$ "))
+
+
+# Линейный (последовательный) поиск
+
+# def seq_search(s, item):
+#     pos = 0  # 2
+#     found = False  # True
+#     while pos < len(s) and not found:
+#         if s[pos] == item:
+#             found = True
+#         else:
+#             pos += 1
+#     return found
+#
+#
+# lst = [54, 26, 93, 17, 77, 31, 44, 55, 28, 65]
+# print(seq_search(lst, 93))  # True
+# print(seq_search(lst, 3))  # False
+
+# def seq_search(s, item):
+#     pos = 0  # 2
+#     found = False  # True
+#     stop = False
+#     while pos < len(s) and not found and not stop:
+#         if s[pos] == item:
+#             found = True
+#         else:
+#             if s[pos] > item:
+#                 stop = True
+#             else:
+#                 pos += 1
+#     return found
+#
+#
+# lst = [54, 26, 93, 17, 77, 31, 44, 55, 28, 65]
+# lst.sort()
+# print(lst)
+# print(seq_search(lst, 93))  # True
+# print(seq_search(lst, 28))  # False
+
+# Бинарный поиск
+
+# def binary_search(s, item):
+#     first = 0  # 0
+#     last = len(s) - 1  # 9
+#     found = False
+#
+#     while first <= last and not found:
+#         midpoint = (first + last) // 2  # 4
+#         if s[midpoint] == item:
+#             found = True
+#         else:
+#             if item < s[midpoint]:
+#                 last = midpoint - 1
+#             else:
+#                 first = midpoint + 1
+#
+#     return found
+#
+#
+# lst = [17, 20, 26, 31, 44, 54, 55, 65, 77, 93]
+# print(binary_search(lst, 26))
+# print(binary_search(lst, 28))
+
+# Алгоритмы сортировки
+# "пузырьковая сортировка"
+
+# from random import randint
+#
+#
+# def bubble(array):
+#     for i in range(len(array) - 1):
+#         for j in range(len(array) - i - 1):
+#             if array[j] > array[j + 1]:
+#                 array[j], array[j + 1] = array[j + 1], array[j]
+#
+#
+# a = [randint(1, 100) for i in range(10)]
+#
+# print(a)
+# bubble(a)
+# print(a)
+
+
+# def binary_search(s, item):
+#     found = False
+#     first = 0
+#     last = len(s) - 1  # 9
+#     found = False
+#
+#     while first <= last and not found:
+#         midpoint = (first + last) // 2  # 4
+#         if s[midpoint] == item:
+#             found = True
+#         else:
+#             if item < s[midpoint]:
+#                 last = midpoint - 1
+#             else:
+#                 first = midpoint + 1
+#
+#     return found
+#
+#
+# a = [randint(1, 100) for i in range(10)]
+# print(a)
+# a.sort()
+# print(a)
+# n = int(input("Введите число: "))
+# if binary_search(a, n):
+#     print(f"Число {n} в списке присутствует")
+# else:
+#     print(f"Число {n} в списке отсутствует")
+
+
+# from random import randint
+# import time
+#
+#
+# def bubble(array):
+#     for i in range(len(array) - 1):
+#         for j in range(len(array) - i - 1):
+#             if array[j] > array[j + 1]:
+#                 array[j], array[j + 1] = array[j + 1], array[j]
+#
+#
+# a = [randint(1, 100) for i in range(10000)]
+#
+# # print(a)
+# start = time.monotonic()
+# bubble(a)
+# # print(a)
+# res = time.monotonic() - start
+# print(round(res, 3), "sec")
+
+# n = int(input("Введите число: "))
+# if binary_search(a, n):
+#     print(f"Число {n} в списке присутствует")
+# else:
+#
+
+# from random import randint
+# import time
+#
+#
+# def merge_sort(a):
+#     n = len(a)
+#     if n < 2:
+#         return a
+#
+#     left = merge_sort(a[:n // 2])
+#     right = merge_sort(a[n // 2:n])
+#
+#     i = j = 0
+#     res = []
+#
+#     while i < len(left) or j < len(right):
+#         if not i < len(left):
+#             res.append(right[j])
+#             j += 1
+#         elif not j < len(right):
+#             res.append(left[i])
+#             i += 1
+#         elif left[i] < right[j]:
+#             res.append(left[i])
+#             i += 1
+#         else:
+#             res.append(right[j])
+#             j += 1
+#     return res
+#
+#
+# array = [randint(1, 100) for i in range(10000)]
+# # print(array)
+# start = time.monotonic()
+# array = merge_sort(array)
+# # print(array)
+# res = time.monotonic() - start
+# print(round(res, 3), "sec")
+
+# Сортировка Шелла
+
+# from random import randint
+# import time
+#
+#
+# def shell_sort(s):
+#     qap = len(s)
+#
+#     while qap > 0:
+#         for val in range(qap, len(s)):
+#             cur_val = s[val]
+#             pos = val
+#
+#             while pos >= qap and s[pos - qap] > cur_val:
+#                 s[pos] = s[pos - qap]
+#                 pos -= qap
+#                 s[pos] = cur_val
+#
+#         qap //= 2
+#     return s
+#
+#
+# a = [randint(1, 100) for i in range(10000)]
+# # print(a)
+# start = time.monotonic()
+# shell_sort(a)
+# # print(a)
+# res = time.monotonic() - start
+# print(round(res, 3), "sec")
+
+
+# Быстрая сортировка
+
+# from random import randint
+# import time
+#
+#
+# def quick_sort(a):
+#     if len(a) > 1:
+#         x = a[(len(a) - 1) // 2]
+#         low = [i for i in a if i < x]
+#         eq = [i for i in a if i == x]
+#         hi = [i for i in a if i > x]
+#         a = quick_sort(low) + eq + quick_sort(hi)
+#     return a
+#
+#
+# lst = [randint(1, 100) for i in range(10000)]
+# start = time.monotonic()
+# # print(lst)
+# # lst = quick_sort(lst)
+# # print(lst)
+# lst.sort()
+# res = time.monotonic() - start
+# print(round(res, 3), "sec")
+
+# работа с файлами
+
+# f = open(r'C:\Users\Admin\Desktop\python\text1.txt')
+# print(f)
+# print(*f)
+# print(f.mode)
+# print(f.name)
+# print(f.encoding)
+# f.close()
+# print(f.closed)
+#
+#
+# f = open('text1.txt', 'r')
+# print(f.read(3))
+# print(f.read())
+# f.close()
+
+# f = open('test.txt', 'r')
+# print(f.readline())
+# print(f.readline(8))
+# print(f.readline())
+# print(f.readline())
+# f.close()
+
+# count = 0
+# f = open('test.txt')
+# for line in f:
+#     count += 1
+# print(count)
+#
+# f.close()
+#
+# fail = open('test.txt')
+# count_lines = len(fail.readlines())
+# print(count_lines)
+
+
+# f = open('xyz.txt', 'w')
+# f.write('Hello\nWorld')
+# f.close()
+
+# f = open('xyz.txt', 'a')
+# # f.write('Hello\nWorld')
+# # lines = ['This is line 1', 'This is line 2']
+# lines = [str(i ** 5) for i in range(1, 20)]
+# print(lines)
+# # f.writelines(lines)
+# for index in lines:
+#     f.write(index + "\t")
+# f.close()
+
+
+f = open(("text2.txt", "w"))
+f.write("Замена строки в текстовом файле;\nизменить строку в списке;\nзаписать список в файл;")
+f.close()
+
+f = open("text2.txt", "r")
+read_f = f.readline()
+print(read_f)
+for i in range(len(read_f)):
+    if read_f[i] == "Изменить строку в списке;\n":
+        read_f[i] = "Hello World!"
+print(read_f)
+f.close()
+
+f = open("text2.txt", "w")
+f.writelines(read_f)
+f.close()
+
+f.close()
+
+# ____________________

@@ -58,20 +58,49 @@
 
 #  ---------2--------
 
-def sumNumbers(x):
-    if x == []:
-        return 0
-    else:
-        count = sumNumbers(x[1:])
-        if x[0] < 0:
-            count = count + 1
-        return count
+# def sumNumbers(x):
+#     if x == []:
+#         return 0
+#     else:
+#         count = sumNumbers(x[1:])
+#         if x[0] < 0:
+#             count = count + 1
+#         return count
+#
+#
+# s = [-2, 3, 8, -11, -4, 6]
+# n = sumNumbers(s)
+# print("n = ", n)
 
 
-s = [-2, 3, 8, -11, -4, 6]
-n = sumNumbers(s)
-print("n = ", n)
+#  --------homework19-------------
+
+from random import randint
 
 
+def binary_search(s, item):
+    found = False
+    first = 0
+    last = len(s) - 1
+    found = False
+    while first <= last and not found:
+        midpoint = (first + last) // 2
+        if s[midpoint] == item:
+            found = True
+        else:
+            if item < s[midpoint]:
+                last = midpoint - 1
+            else:
+                first = midpoint + 1
+
+    return found
 
 
+a = [randint(1, 100) for i in range(10)]
+print(a)
+a.sort()
+n = int(input("Введите число: "))
+if binary_search(a, n):
+    print(f"Число {n} в списке присутствует")
+else:
+    print(f"Число {n} в списке отсутствует")
