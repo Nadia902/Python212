@@ -213,19 +213,54 @@
 
 #  -----2------
 
-import os
+# import os
+#
+#
+# def file_found(ff):
+#     cwd = os.getcwd()
+#     x_file = os.path.join(cwd, ff)
+#     if os.path.exists(x_file):
+#         print(os.path.basename(x_file), os.path.dirname(x_file),
+#         "- last access time", os.path.getatime(x_file), "sec")
+#     else:
+#         print("file not found")
+#
+#
+# fl = input("Введите название файла: ")
+# file_found(fl)
 
 
-def file_found(ff):
-    cwd = os.getcwd()
-    x_file = os.path.join(cwd, ff)
-    if os.path.exists(x_file):
-        print(os.path.basename(x_file), os.path.dirname(x_file), "- last access time", os.path.getatime(x_file), "sec")
-    else:
-        print("file not found")
+#  --------homework22-------------
+
+class Rectangle:
+
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+        print("Длина прямоугольника:", self.length)
+        print("Ширина прямоугольника:", self.width)
+
+    def s_rectangle(self):
+        s = self.length * self.width
+        print("Площадь прямоугольника:", s)
+
+    def rectangle_perimeter(self):
+        p = 2 * (self.length + self.width)
+        print("Периметр прямоугольника:", p)
+
+    def rectangle_hypotenuse(self):
+        h = (self.length**2 + self.width**2)**0.5
+        print("Гипотенуза прямоугольника:", round(h, 2))
+
+    def print_rectangle(self):
+        for x in range(self.length):
+            for y in range(self.width):
+                print("*", end='')
+            print()
 
 
-fl = input("Введите название файла: ")
-file_found(fl)
-
-
+r = Rectangle(3, 9)
+r.s_rectangle()
+r.rectangle_perimeter()
+r.rectangle_hypotenuse()
+r.print_rectangle()
