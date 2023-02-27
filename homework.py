@@ -232,35 +232,89 @@
 
 #  --------homework22-------------
 
-class Rectangle:
+# class Rectangle:
+#
+#     def __init__(self, length, width):
+#         self.length = length
+#         self.width = width
+#         print("Длина прямоугольника:", self.length)
+#         print("Ширина прямоугольника:", self.width)
+#
+#     def s_rectangle(self):
+#         s = self.length * self.width
+#         print("Площадь прямоугольника:", s)
+#
+#     def rectangle_perimeter(self):
+#         p = 2 * (self.length + self.width)
+#         print("Периметр прямоугольника:", p)
+#
+#     def rectangle_hypotenuse(self):
+#         h = (self.length**2 + self.width**2)**0.5
+#         print("Гипотенуза прямоугольника:", round(h, 2))
+#
+#     def print_rectangle(self):
+#         for x in range(self.length):
+#             for y in range(self.width):
+#                 print("*", end='')
+#             print()
+#
+#
+# r = Rectangle(3, 9)
+# r.s_rectangle()
+# r.rectangle_perimeter()
+# r.rectangle_hypotenuse()
+# r.print_rectangle()
 
-    def __init__(self, length, width):
-        self.length = length
-        self.width = width
-        print("Длина прямоугольника:", self.length)
-        print("Ширина прямоугольника:", self.width)
-
-    def s_rectangle(self):
-        s = self.length * self.width
-        print("Площадь прямоугольника:", s)
-
-    def rectangle_perimeter(self):
-        p = 2 * (self.length + self.width)
-        print("Периметр прямоугольника:", p)
-
-    def rectangle_hypotenuse(self):
-        h = (self.length**2 + self.width**2)**0.5
-        print("Гипотенуза прямоугольника:", round(h, 2))
-
-    def print_rectangle(self):
-        for x in range(self.length):
-            for y in range(self.width):
-                print("*", end='')
-            print()
+#  --------homework23-----------
+import math
 
 
-r = Rectangle(3, 9)
-r.s_rectangle()
-r.rectangle_perimeter()
-r.rectangle_hypotenuse()
-r.print_rectangle()
+class Sphere:
+    r = 0.6
+    x = 0
+    y = 0
+    z = 0
+
+    def __init__(self, x1, y1, z1):
+        self.x1 = x1
+        self.y1 = y1
+        self.z1 = z1
+
+    def set_radius(self, r):
+        self.r = r
+
+    def get_radius(self):
+        return self.r
+
+    def get_volume(self):
+        return (4 / 3) * math.pi * self.r ** 3
+
+    def get_square(self):
+        return 4 * math.pi * self.r**2
+
+    def set_center(self, x1, y1, z1):
+        self.x1 = x1
+        self.y1 = y1
+        self.z1 = z1
+
+    def get_center(self):
+        return self.x1, self.y1, self.z1
+
+    def is_point_inside(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+        return (self.x - self.x1)**2 + (self.y - self.y1)**2 + (self.z - self.z1)**2 < self.r**2
+
+
+s1 = Sphere(0, 0, 0)
+print("get_radius = ", s1.get_radius())
+print("get_volume = ", s1.get_volume())
+print("get_square = ", s1.get_square())
+print("get_center = ", s1.get_center())
+print("get_square = ", s1.get_square())
+s1.is_point_inside(0, -1.5, 0)
+print(f"is_point_inside{s1.x, s1.y, s1.z}:", s1.is_point_inside(0, -1.5, 0))
+s1.set_radius(1.6)
+print(f"set_radius({s1.r}) :", s1.get_radius())
+print(f"is_point_inside{s1.x, s1.y, s1.z}:", s1.is_point_inside(0, -1.5, 0))
