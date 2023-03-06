@@ -4521,40 +4521,433 @@
 # print(Count.maxin(3, 5, 7, 9))
 # print(Count.minin(3, 5, 7, 9))
 
-import math
+# import math
+#
+#
+# class Area:
+#     count = 0
+#
+#     @staticmethod
+#     def triangle_area(a, b, c):
+#         p = (a + b + c) / 2
+#         Area.count += 1
+#         return math.sqrt(p * (p - a) * (p - b) * (p - c))
+#
+#     @staticmethod
+#     def triangle_area2(a, h):
+#         Area.count += 1
+#         return 0.5 * a * h
+#
+#     @staticmethod
+#     def square_area(a):
+#         Area.count += 1
+#         return a ** 2
+#
+#     @staticmethod
+#     def rect_area(a, b):
+#         Area.count += 1
+#         return a * b
+#
+#     @staticmethod
+#     def get_count():
+#         return Area.count
+#
+#
+# print(f"Площадь треугольника по формуле Герона:", Area.triangle_area(3, 4, 5))
+# print(f"Площадь треугольника через основание и высоту:", Area.triangle_area2(6, 7))
+# print(f"Площадь квадрата:", Area.square_area(7))
+# print(f"Площадь прямоугольника:", Area.rect_area(2, 6))
+# print(f"Количество подсчетов площади: {Area.get_count()}")
+
+# __________
+
+# class Date:
+#     def __init__(self, day, month, year):
+#         self.day = day
+#         self.month = month
+#         self.year = year
+#
+#     @classmethod
+#     def from_string(cls, date_as_string):
+#         day, month, year = map(int, date_as_string.split("."))
+#         return cls(day, month, year)
+#
+#     @staticmethod
+#     def is_date_valid(date_as_string):
+#         if date_as_string.count(".") == 2:
+#             day, month, year = map(int, date_as_string.split("."))
+#             return day <= 31 and month <= 12 and year <= 3999
+#
+#     def string_to_db(self):
+#         return f"{self.year}-{self.month}-{self.day}"
+#
+#
+# dates = [
+#     '30.12.2020',
+#     '30-12-2020',
+#     '89.12.2021',
+#     '12.31.2022'
+# ]
+#
+# for string_date in dates:
+#     if Date.is_date_valid(string_date):
+#         date = Date.from_string(string_date)
+#         string_to_db = date.string_to_db()
+#         print(string_to_db)
+#     else:
+#         print("Неправильная дата или формат строки с датой")
+#
+#
+# # string_date = "23.10.2021"
+# # day, month, year = map(int, string_date.split("."))
+# # date = Date(day, month, year)
+# date = Date.from_string("23.10.2021")
+# print(date.string_to_db())
+#
+# # string_date2 = "15.11.2021"
+# # day, month, year = map(int, string_date2.split("."))
+# date2 = Date.from_string("15.11.2021")
+# print(date2.string_to_db())
 
 
-class Area:
-    count = 0
+class Account:
+    rate_usd = 0.013
+    rate_eur = 0.011
+    suffix = "RUB"
+    suffix_usd = "USD"
+    suffix_eur = "EUR"
+
+    def __init__(self, surname, num, percent, value=0):
+        self.num = num
+        self.surname = surname
+        self.percent = percent
+        self.value = value
+        print(f"Счет #{self.num} принадлежащий {self.surname} был открыт.")
+        print("*" * 50)
+
+    def __del__(self):
+        print("*" * 50)
+        print(f"Счет #{self.num} принадлежащий {self.surname} был закрыт.")
 
     @staticmethod
-    def triangle_area(a, b, c):
-        p = (a + b + c) / 2
-        Area.count += 1
-        return math.sqrt(p * (p - a) * (p - b) * (p - c))
+    def convert(value, rate):
+        return value * rate
 
-    @staticmethod
-    def triangle_area2(a, h):
-        Area.count += 1
-        return 0.5 * a * h
+    @classmethod
+    def set_usd_rate(cls, rate):
+        cls.rate_usd = rate
 
-    @staticmethod
-    def square_area(a):
-        Area.count += 1
-        return a ** 2
+    @classmethod
+    def set_eur_rate(cls, rate):
+        cls.rate_eur = rate
 
-    @staticmethod
-    def rect_area(a, b):
-        Area.count += 1
-        return a * b
+    def print_balance(self):
+        print(f"Текущий баланс {self.value} {Account.suffix}")
 
-    @staticmethod
-    def get_count():
-        return Area.count
+    def convert_to_usd(self):
+        usd_val = Account.convert(self.value, Account.rate_usd)
+        print(f"Состояние счета: {usd_val} {Account.suffix_usd}")
+
+    def convert_to_eur(self):
+        eur_val = Account.convert(self.value, Account.rate_eur)
+        print(f"Состояние счета: {eur_val} {Account.suffix_eur}")
+
+    def edit_owner(self, surname):
+        self.surname = surname
+
+    def add_percents(self):
+        self.value += self.value * self.percent
+        print(f"Проценты были успешно начислены:")
+        self.print_balance()
+
+    def withdraw_money(self, val):
+        if val > self.value:
+            print(f"К сожалению у вас нет {val} {Account.suffix}")
+        else:
+            self.value -= val
+            print(f"{val} {Account.suffix} было успешно снято!")
+        self.print_balance()
+
+    def add_money(self, val):
+        self.value += val
+        print(f'{val} {Account.suffix} было успешно добавлено!')
+        self.print_balance()
+
+    def print_info(self):
+        print("Информация о счете:")
+        print("-" * 20)
+        print(f"#{self.num}")
+        print(f"Владелец: {self.surname}")
+        self.print_balance()
+        print(f"Проценты: {self.percent:.0%}")
+        print("-" * 20)
 
 
-print(f"Площадь треугольника по формуле Герона:", Area.triangle_area(3, 4, 5))
-print(f"Площадь треугольника через основание и высоту:", Area.triangle_area2(6, 7))
-print(f"Площадь квадрата:", Area.square_area(7))
-print(f"Площадь прямоугольника:", Area.rect_area(2, 6))
-print(f"Количество подсчетов площади: {Area.get_count()}")
+acc = Account(num='12345', surname="Долгих", percent=0.03, value=1000)
+# acc.print_balance()
+acc.print_info()
+acc.convert_to_usd()
+acc.convert_to_eur()
+print()
+Account.set_usd_rate(2)
+acc.convert_to_usd()
+Account.set_eur_rate(3)
+acc.convert_to_eur()
+print()
+acc.edit_owner("Дюма")
+acc.print_info()
+print()
+acc.add_percents()
+print()
+
+acc.withdraw_money(100)
+print()
+acc.withdraw_money(3000)
+print()
+
+acc.add_money(5000)
+print()
+acc.withdraw_money(3000)
+# _______________
+# import re
+#
+#
+# class UserDate:
+#     def __init__(self, fio, old, ps, weight):
+#         # self.verify_fio(fio)
+#         # self.verify_old(old)
+#         # self.verify_weight(weight)
+#         # self.verify_ps(ps)
+#
+#         self.fio = fio
+#         self.old = old
+#         self.__password = ps
+#         self.weight = weight
+#
+#     @staticmethod
+#     def verify_fio(fio):
+#         if not isinstance(fio, str):
+#             raise TypeError("ФИО должно быть строкой")
+#         f = fio.split()
+#         if len(f) != 3:
+#             raise TypeError("Неверный формат ФИО")
+#
+#         letters = "".join(re.findall(r'[а-яё-]', fio, re.IGNORECASE))
+#         for s in f:
+#             print(s.strip(letters))
+#             if len(s.strip(letters)) != 0:
+#                 raise TypeError("В ФИО можно использовать только буквы и дефис")
+#
+#     @staticmethod
+#     def verify_old(old):
+#         if not isinstance(old, int) or old < 18 or old > 90:
+#             raise TypeError("Возраст должен быть числом в диапозоне от 18 до 90 лет")
+#
+#     @staticmethod
+#     def verify_weight(w):
+#         if not isinstance(w, float) or w < 20:
+#             raise TypeError("Вес должен быть вещественный числом от 20 кг и выше")
+#
+#     @staticmethod
+#     def verify_ps(ps):
+#         if not isinstance(ps, str):
+#             raise TypeError("Паспорт должен быть строкой")
+#         s = ps.split()
+#         if len(s) != 2 or len(s[0]) != 4 or len(s[1]) != 6:
+#             raise TypeError("Неверный формат паспорта")
+#         for p in s:
+#             if not p.isdigit():
+#                 raise TypeError("Серия и номер паспорта должны быть числами")
+#
+#     @property
+#     def fio(self):
+#         return self.__fio
+#
+#     @fio.setter
+#     def fio(self, fio):
+#         self.verify_fio(fio)
+#         self.__fio = fio
+#
+#     @property
+#     def old(self):
+#         return self.__old
+#
+#     @old.setter
+#     def old(self, year):
+#         self.verify_old(year)
+#         self.__old = year
+#
+#     @property
+#     def weight(self):
+#         return self.__weight
+#
+#     @weight.setter
+#     def weight(self, w):
+#         self.verify_weight(w)
+#         self.__weight = w
+#
+#     @property
+#     def password(self):
+#         return self.__password
+#
+#     @password.setter
+#     def password(self, ps):
+#         self.verify_ps(ps)
+#         self.__password = ps
+#
+#
+# p1 = UserDate("Волков Игорь Николаевич", 26, '1234 567890', 80.8)
+# p1.fio = "Соболев Игорь Николаевич"
+# p1.old = 35
+# p1.password = '4567 123456'
+# p1.weight = 70.0
+# print(p1.__dict__)
+
+
+# Наследование
+#
+# class Point:
+#
+#     def __init__(self, x, y):
+#         self.__x = x
+#         self.__y = y
+#
+#     def __str__(self):
+#         return f"({self.__x}, {self.__y})"
+#
+#
+# class Prop:
+#     def __init__(self, sp: Point, ep: Point, color: str = "red", width: int = 1):
+#         print("Инициализатор базового класса Prop")
+#         self._sp = sp
+#         self._ep = ep
+#         self._color = color
+#         self.__width = width
+#
+#     def get_width(self):
+#         return self.__width
+#
+#
+# class Line(Prop):
+#     def __init__(self, *args):
+#         # Prop.__init__(self, *args)
+#         print("Переопределенный инициализатор Line")
+#         super().__init__(*args)
+#
+#     def draw_line(self):
+#         print(f"Рисование линии: {self._sp}, {self._ep}, {self._color}, {self.get_width()}")
+#
+#
+# # class Rect(Prop):
+# #     def draw_rect(self) -> None:
+# #         print(f"Рисование прямоугольника: {self._sp}, {self._ep}, {self._color}, {self._width}")
+#
+#
+# line = Line(Point(1, 2), Point(10, 20))
+# # print(line.__dict__)
+# # line._width = 5
+# line.draw_line()
+#
+# # rect = Rect(Point(1, 2), Point(10, 20))
+# # rect.draw_rect()
+# # print(dir(Rect))
+#
+# # DRY (Don't Repeat Yourself) - не повторяйся!
+
+# class Figure:
+#     def __init__(self, color):
+#         self.__color = color
+#
+#     @property
+#     def color(self):
+#         return self.__color
+#
+#     @color.setter
+#     def color(self, c):
+#         self.__color = c
+#
+#
+# class Rectangle(Figure):
+#     def __init__(self, width, height, color):
+#         super().__init__(color)
+#         self.__width = width
+#         self.__height = height
+#
+#     def area(self):
+#         print("Площадь: ", end="")
+#         return self.__width * self.__height
+#
+#     def print_info(self):
+#         print(f"Прямоугольник\nШирина: {self.__width}\nВысота: {self.__height}\nЦвет: {self.color}")
+#
+#
+# rect = Rectangle(10, 20, "зеленый")
+# rect.color = "синий"
+# rect.print_info()
+# print(rect.area())
+
+
+# class Point:
+#
+#     def __init__(self, x, y):
+#         self.__x = x
+#         self.__y = y
+#
+#     def __str__(self):
+#         return f"({self.__x}, {self.__y})"
+#
+#     def is_digit(self):
+#         if isinstance(self.__x, (int, float)) and isinstance(self.__y, (int, float)):
+#             return True
+#         return False
+#
+#     def is_int(self):
+#         if isinstance(self.__x, int) and isinstance(self.__y, int):
+#             return True
+#         return False
+#
+#
+# class Prop:
+#     def __init__(self, sp: Point, ep: Point, color: str = "red", width: int = 1):
+#         self._sp = sp
+#         self._ep = ep
+#         self._color = color
+#         self._width = width
+#
+#     def set_coord(self, sp, ep):
+#         print("Prop")
+#         if sp.is_digit() and ep.is_digit():
+#             self._sp = sp
+#             self._ep = ep
+#         else:
+#             print("Координаты должны быть числами")
+#
+#
+# class Line(Prop):
+#     def draw_line(self):
+#         print(f"Рисование линии: {self._sp}, {self._ep}, {self._color}, {self._width}")
+#
+#     def set_coord(self, sp, ep):
+#         print("Line")
+#         super().set_coord(sp, ep)
+#         if sp.is_int() and ep.is_int():
+#             self._sp = sp
+#             self._ep = ep
+#         else:
+#             print("Координаты должны быть числами")
+#
+#
+# class Rect(Prop):
+#     def draw_rect(self):
+#         print(f"Рисование прямоугольника: {self._sp}, {self._ep}, {self._color}, {self._width}")
+#
+#
+# line = Line(Point(1, 2), Point(10, 20))
+# line.draw_line()
+# line.set_coord(Point(10, 20), Point(100, 200))
+# line.draw_line()
+# print()
+# rect = Rect(Point(30, 40), Point(70, 80))
+# rect.draw_rect()
+# rect.set_coord(Point(20.3, 30), Point(50, 70))
+# rect.draw_rect()
