@@ -321,7 +321,7 @@
 
 #  --------homework23-----------
 # ----------1-----------
-#
+
 # class Account:
 #     rate_usd = 0.013
 #     rate_eur = 0.011
@@ -337,29 +337,37 @@
 #         print(f"Счет #{self.__num} принадлежащий {self.__surname} был открыт.")
 #         print("*" * 50)
 #
-#     def set_num(self, n):
-#         self.__num = n
-#
-#     def get_num(self):
+#     @property
+#     def num(self):
 #         return self.__num
 #
-#     def set_surname(self, s):
-#         self.__surname = s
+#     @num.setter
+#     def num(self, n):
+#         self.__num = n
 #
-#     def get_surname(self):
+#     @property
+#     def surname(self):
 #         return self.__surname
 #
-#     def set_percent(self, p):
-#         self.__percent = p
+#     @surname.setter
+#     def surname(self, s):
+#         self.__surname = s
 #
-#     def get_percent(self):
+#     @property
+#     def percent(self):
 #         return self.__percent
 #
-#     def set_value(self, v):
-#         self.__value = v
+#     @percent.setter
+#     def percent(self, p):
+#         self.__percent = p
 #
-#     def get_value(self):
+#     @property
+#     def value(self):
 #         return self.__value
+#
+#     @value.setter
+#     def value(self, v):
+#         self.__value = v
 #
 #     def __del__(self):
 #         print("*" * 50)
@@ -426,7 +434,7 @@
 # Account.set_eur_rate(3)
 # acc.convert_to_eur()
 # print()
-# acc.set_surname("Дюма")
+# acc.surname = "Дюма"
 # acc.print_info()
 # print()
 # acc.add_percents()
@@ -441,7 +449,7 @@
 # print()
 # acc.withdraw_money(3000)
 
-# ----------2-----------
+# -------2---------
 
 class Account:
     rate_usd = 0.013
@@ -458,37 +466,29 @@ class Account:
         print(f"Счет #{self.__num} принадлежащий {self.__surname} был открыт.")
         print("*" * 50)
 
-    @property
-    def num(self):
-        return self.__num
-
-    @num.setter
-    def num(self, n):
+    def set_num(self, n):
         self.__num = n
 
-    @property
-    def surname(self):
-        return self.__surname
+    def get_num(self):
+        return self.__num
 
-    @surname.setter
-    def surname(self, s):
+    def set_surname(self, s):
         self.__surname = s
 
-    @property
-    def percent(self):
-        return self.__percent
+    def get_surname(self):
+        return self.__surname
 
-    @percent.setter
-    def percent(self, p):
+    def set_percent(self, p):
         self.__percent = p
 
-    @property
-    def value(self):
-        return self.__value
+    def get_percent(self):
+        return self.__percent
 
-    @value.setter
-    def value(self, v):
+    def set_value(self, v):
         self.__value = v
+
+    def get_value(self):
+        return self.__value
 
     def __del__(self):
         print("*" * 50)
@@ -555,7 +555,7 @@ acc.convert_to_usd()
 Account.set_eur_rate(3)
 acc.convert_to_eur()
 print()
-acc.surname = "Дюма"
+acc.set_surname("Дюма")
 acc.print_info()
 print()
 acc.add_percents()
@@ -569,3 +569,4 @@ print()
 acc.add_money(5000)
 print()
 acc.withdraw_money(3000)
+
