@@ -615,79 +615,23 @@ class RightTriangle(Pair):
         print("Площадь ABC:", self.a * self.b / 2)
 
     def info(self):
-        print("Прямоугольный треуголник ABC ", end="")
         return self.a, self.b, self.c
 
 
 rec = RightTriangle(5, 8)
-print(rec.hypotenuse())
-print(rec.info())
-print(rec.square())
+rec.hypotenuse()
+print("Прямоугольный треуголник ABC ", rec.info())
+rec.square()
 print()
-print(rec.sum_num())
-print(rec.prod_num())
+rec.sum_num()
+rec.prod_num()
 print()
 rec.a = 7
 rec.b = 8
-print(rec.hypotenuse())
+rec.hypotenuse()
 rec.a = 17
 rec.b = 13
-print(rec.hypotenuse())
-print(rec.sum_num())
-print(rec.prod_num())
-print(rec.square())
-
-# import math
-# class Pair:
-#     def __init__(self, a, b):
-#         self.a = a
-#         self.b = b
-#
-#     def set_a(self, a):
-#         self.a = a
-#
-#     def set_b(self, b):
-#         self.b = b
-#
-#     def get_sum(self):
-#         return self.a + self.b
-#
-#     def get_product(self):
-#         return self.a * self.b
-#
-#
-# class RightTriangle(Pair):
-#     def __init__(self, a, b):
-#         super().__init__(a, b)
-#
-#     def get_hypotenuse(self):
-#         return math.sqrt(self.a ** 2 + self.b ** 2)
-#
-#     def get_area(self):
-#         return self.a * self.b / 2
-#
-#     def print_info(self):
-#         print(f"Прямоугольный треугольник ABC ({self.a}, {self.b}, {self.get_hypotenuse():.2f})")
-#         print(f"Площадь ABC: {self.get_area():.1f}")
-#
-#
-# # Пример использования:
-# pair = Pair(5, 8)
-# print("Сумма:", pair.get_sum())
-# print("Произведение:", pair.get_product())
-#
-# triangle = RightTriangle(5, 8)
-# print(f"Гипотенуза ABC: {triangle.get_hypotenuse():.2f}")
-# triangle.print_info()
-#
-# pair.set_a(12)
-# pair.set_b(18)
-# print("Сумма:", pair.get_sum())
-# print("Произведение:", pair.get_product())
-#
-# triangle.set_a(12)
-# triangle.set_b(18)
-# print(f"Гипотенуза ABC: {triangle.get_hypotenuse():.2f}")
-# print("Сумма:", triangle.get_sum())
-# print("Произведение:", triangle.get_product())
-# triangle.print_info()
+rec.hypotenuse()
+rec.sum_num()
+rec.prod_num()
+rec.square()
