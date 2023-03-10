@@ -571,67 +571,94 @@
 # acc.withdraw_money(3000)
 
 #  --------homework24-----------
-import math
+# import math
+#
+#
+# class Pair:
+#     def __init__(self, a, b):
+#         self._a = a
+#         self._b = b
+#
+#     @property
+#     def a(self):
+#         return self._a
+#
+#     @a.setter
+#     def a(self, num_a):
+#         self._a = num_a
+#
+#     @property
+#     def b(self):
+#         return self._b
+#
+#     @b.setter
+#     def b(self, num_b):
+#         self._b = num_b
+#
+#     def prod_num(self):
+#         print("Произведение:", self._a * self._b)
+#
+#     def sum_num(self):
+#         print("Сумма:", self._a + self._b)
+#
+#
+# class RightTriangle(Pair):
+#     def __init__(self, a, b, c=0):
+#         super().__init__(a, b)
+#         self.c = c
+#
+#     def hypotenuse(self):
+#         self.c = round(math.sqrt(self.a**2 + self.b**2), 2)
+#         print("Гипотенуза ABC:", self.c)
+#
+#     def square(self):
+#         print("Площадь ABC:", self.a * self.b / 2)
+#
+#     def info(self):
+#         return self.a, self.b, self.c
+#
+#
+# rec = RightTriangle(5, 8)
+# rec.hypotenuse()
+# print("Прямоугольный треуголник ABC ", rec.info())
+# rec.square()
+# print()
+# rec.sum_num()
+# rec.prod_num()
+# print()
+# rec.a = 7
+# rec.b = 8
+# rec.hypotenuse()
+# rec.a = 17
+# rec.b = 13
+# rec.hypotenuse()
+# rec.sum_num()
+# rec.prod_num()
+# rec.square()
+
+#  --------homework25-----------
+
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.note = self.Notebook()
+
+    def show(self):
+        print(self.name, end=" ")
+        self.note.show()
+
+    class Notebook:
+        def __init__(self):
+            self.brand = 'HP'
+            self.cpu = 'i7'
+            self.ram = 16
+
+        def show(self):
+            print(f" => {self.brand}, {self.cpu}, {self.ram}")
 
 
-class Pair:
-    def __init__(self, a, b):
-        self._a = a
-        self._b = b
+s1 = Student("Roman")
+s2 = Student("Vladimir")
 
-    @property
-    def a(self):
-        return self._a
-
-    @a.setter
-    def a(self, num_a):
-        self._a = num_a
-
-    @property
-    def b(self):
-        return self._b
-
-    @b.setter
-    def b(self, num_b):
-        self._b = num_b
-
-    def prod_num(self):
-        print("Произведение:", self._a * self._b)
-
-    def sum_num(self):
-        print("Сумма:", self._a + self._b)
-
-
-class RightTriangle(Pair):
-    def __init__(self, a, b, c=0):
-        super().__init__(a, b)
-        self.c = c
-
-    def hypotenuse(self):
-        self.c = round(math.sqrt(self.a**2 + self.b**2), 2)
-        print("Гипотенуза ABC:", self.c)
-
-    def square(self):
-        print("Площадь ABC:", self.a * self.b / 2)
-
-    def info(self):
-        return self.a, self.b, self.c
-
-
-rec = RightTriangle(5, 8)
-rec.hypotenuse()
-print("Прямоугольный треуголник ABC ", rec.info())
-rec.square()
-print()
-rec.sum_num()
-rec.prod_num()
-print()
-rec.a = 7
-rec.b = 8
-rec.hypotenuse()
-rec.a = 17
-rec.b = 13
-rec.hypotenuse()
-rec.sum_num()
-rec.prod_num()
-rec.square()
+s1.show()
+s2.show()

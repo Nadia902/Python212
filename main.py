@@ -5359,30 +5359,30 @@
 
 # _______________________
 
-# class Student:
-#     def __init__(self, name):
-#         self.name = name
-#         self.note = self.Notebook()
-#
-#     def show(self):
-#         print(self.name, end=" ")
-#         self.note.show()
-#
-#     class Notebook:
-#         def __init__(self):
-#             self.brand = 'HP'
-#             self.cpu = 'i7'
-#             self.ram = 16
-#
-#         def show(self):
-#             print(f" => {self.brand}, {self.cpu}, {self.ram}")
-#
-#
-# s1 = Student("Roman")
-# s2 = Student("Vladimir")
-#
-# s1.show()
-# s2.show()
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.note = self.Notebook()
+
+    def show(self):
+        print(self.name, end=" ")
+        self.note.show()
+
+    class Notebook:
+        def __init__(self):
+            self.brand = 'HP'
+            self.cpu = 'i7'
+            self.ram = 16
+
+        def show(self):
+            print(f" => {self.brand}, {self.cpu}, {self.ram}")
+
+
+s1 = Student("Roman")
+s2 = Student("Vladimir")
+
+s1.show()
+s2.show()
 
 
 # class Outer:
@@ -5636,35 +5636,35 @@
 
 # Число секунд в одном дне: 24*60*60 = 86400
 
-class Clock:
-    __DAY = 86400
-
-    def __init__(self, sec: int):
-        if not isinstance(sec, int):
-            raise ValueError("Секунды должны быть целым числом")
-        self.sec = sec % self.__DAY
-
-    def get_format_time(self):
-        s = self.sec % 60
-        m = (self.sec // 60) % 60
-        h = (self.sec // 3600) % 24
-        return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
-
-    @staticmethod
-    def __get_form(x):
-        return str(x) if x > 9 else "0" + str(x)
-
-    def __add_(self, other):
-        if not isinstance(other, Clock):
-            raise ArithmeticError("Правый операнд должен быть типом Clock")
-        return Clock(self.sec + other.sec)  # Clock(300)
-
-
-c1 = Clock(100)
-c2 = Clock(200)
-c4 = Clock(300)
-c3 = c1 + c2 + c4
-print(c1.get_format_time())
-print(c2.get_format_time())
-print(c4.get_format_time())
-print(c3.get_format_time())
+# class Clock:
+#     __DAY = 86400
+#
+#     def __init__(self, sec: int):
+#         if not isinstance(sec, int):
+#             raise ValueError("Секунды должны быть целым числом")
+#         self.sec = sec % self.__DAY
+#
+#     def get_format_time(self):
+#         s = self.sec % 60
+#         m = (self.sec // 60) % 60
+#         h = (self.sec // 3600) % 24
+#         return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
+#
+#     @staticmethod
+#     def __get_form(x):
+#         return str(x) if x > 9 else "0" + str(x)
+#
+#     def __add_(self, other):
+#         if not isinstance(other, Clock):
+#             raise ArithmeticError("Правый операнд должен быть типом Clock")
+#         return Clock(self.sec + other.sec)  # Clock(300)
+#
+#
+# c1 = Clock(100)
+# c2 = Clock(200)
+# c4 = Clock(300)
+# c3 = c1 + c2 + c4
+# print(c1.get_format_time())
+# print(c2.get_format_time())
+# print(c4.get_format_time())
+# print(c3.get_format_time())
