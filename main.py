@@ -5126,7 +5126,7 @@
 
 
 # Абстрактный метод
-#
+
 # from abc import ABC, abstractmethod
 #
 #
@@ -5326,22 +5326,22 @@
 # print(g.name)
 # print(outer.name)
 
-
+# class Intern:
+#     def __init__(self):
+#         self.name = "Intern"
+#
+#     def display(self):
+#         print("Name:", self.name)
+#
+#
 # class Employee:
 #     def __init__(self):
 #         self.name = "Employee"
-#         self.Intern = self.Intern()
-#         self.Head = self.Head()
+#         self.intern = Intern()
+#         self.head = self.Head()
 #
 #     def show(self):
 #         print("Name:", self.name)
-#
-#     class Intern:
-#         def __init__(self):
-#             self.name = "Intern"
-#
-#         def display(self):
-#             print("Name:", self.name)
 #
 #     class Head:
 #         def __init__(self):
@@ -5354,35 +5354,38 @@
 # outer = Employee()
 # outer.show()
 #
-# d1 = outer.Intern
-# d2 = outer.Head
+# d1 = outer.intern
+# d2 = outer.head
+#
+# d1.display()
+# d2.display()
 
 # _______________________
-
-class Student:
-    def __init__(self, name):
-        self.name = name
-        self.note = self.Notebook()
-
-    def show(self):
-        print(self.name, end=" ")
-        self.note.show()
-
-    class Notebook:
-        def __init__(self):
-            self.brand = 'HP'
-            self.cpu = 'i7'
-            self.ram = 16
-
-        def show(self):
-            print(f" => {self.brand}, {self.cpu}, {self.ram}")
-
-
-s1 = Student("Roman")
-s2 = Student("Vladimir")
-
-s1.show()
-s2.show()
+#
+# class Student:
+#     def __init__(self, name):
+#         self.name = name
+#         self.note = self.Notebook()
+#
+#     def show(self):
+#         print(self.name, end=" ")
+#         self.note.show()
+#
+#     class Notebook:
+#         def __init__(self):
+#             self.brand = 'HP'
+#             self.cpu = 'i7'
+#             self.ram = 16
+#
+#         def show(self):
+#             print(f" => {self.brand}, {self.cpu}, {self.ram}")
+#
+#
+# s1 = Student("Roman")
+# s2 = Student("Vladimir")
+#
+# s1.show()
+# s2.show()
 
 
 # class Outer:
@@ -5431,16 +5434,16 @@ s2.show()
 #         def model(self):
 #             return "Core-i7"
 #
-
+#
 # comp = Computer()
 # my_os = comp.os
 # my_cpu = comp.cpu
 # print(comp.name)
 # print(my_os.system())
 # print(my_cpu.make())
-# print(my_cpu.model1())
-#
-#
+# print(my_cpu.model())
+
+
 # class Base:
 #     def __init__(self):
 #         self.db = self.Inner()
@@ -5507,12 +5510,23 @@ s2.show()
 #         print("A_hi")
 #
 #
+# class AA:
+#     def __init__(self):
+#         print("AA")
+#
+#     def hi(self):
+#         print("AA_hi")
+#
+#
 # class B(A):
 #     def __init__(self):
 #         print("B")
 #
+#     def hi(self):
+#         print("B_hi")
 #
-# class C(A):
+#
+# class C(AA):
 #     def __init__(self):
 #         print("C")
 #
@@ -5522,18 +5536,18 @@ s2.show()
 #
 # class D(B, C):
 #     def __init__(self):
-#         print("B")
-#         B.__init__()
+#         print("D")
+#         B.__init__(self)
 #         C.__init__(self)
 #
 #     def hi(self):
-#         c.hi(self)
+#         C.hi(self)
 #
 #
 # d = D()
 # d.hi()
 # print(D.mro())
-# # print(D.__mro__)
+# print(D.__mro__)
 
 
 # class Point:
@@ -5571,7 +5585,7 @@ s2.show()
 #
 # l1 = Line(Point(10, 10), Point(100, 100), "green", 5)
 # l1.draw()
-# print(Line.pro())
+# print(Line.mro())
 
 
 # Миксины (Примеси)
@@ -5636,35 +5650,39 @@ s2.show()
 
 # Число секунд в одном дне: 24*60*60 = 86400
 
-# class Clock:
-#     __DAY = 86400
-#
-#     def __init__(self, sec: int):
-#         if not isinstance(sec, int):
-#             raise ValueError("Секунды должны быть целым числом")
-#         self.sec = sec % self.__DAY
-#
-#     def get_format_time(self):
-#         s = self.sec % 60
-#         m = (self.sec // 60) % 60
-#         h = (self.sec // 3600) % 24
-#         return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
-#
-#     @staticmethod
-#     def __get_form(x):
-#         return str(x) if x > 9 else "0" + str(x)
-#
-#     def __add_(self, other):
-#         if not isinstance(other, Clock):
-#             raise ArithmeticError("Правый операнд должен быть типом Clock")
-#         return Clock(self.sec + other.sec)  # Clock(300)
-#
-#
-# c1 = Clock(100)
-# c2 = Clock(200)
-# c4 = Clock(300)
-# c3 = c1 + c2 + c4
-# print(c1.get_format_time())
-# print(c2.get_format_time())
+class Clock:
+    __DAY = 86400
+
+    def __init__(self, sec: int):
+        if not isinstance(sec, int):
+            raise ValueError("Секунды должны быть целым числом")
+        self.sec = sec % self.__DAY
+
+    def get_format_time(self):
+        s = self.sec % 60
+        m = (self.sec // 60) % 60
+        h = (self.sec // 3600) % 24
+        return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
+
+    @staticmethod
+    def __get_form(x):
+        return str(x) if x > 9 else "0" + str(x)
+
+    def __add__(self, other):
+        if not isinstance(other, Clock):
+            raise ArithmeticError("Правый операнд должен быть типом Clock")
+        return Clock(self.sec + other.sec)
+
+
+c1 = Clock(100)
+c2 = Clock(200)
+c4 = Clock(300)
+# c3 = c1 + c2 + c4  # c3 = Clock(300)
+# c2 += c1
+c3 = c1 + c2
+print(c1.get_format_time())
+print(c2.get_format_time())
 # print(c4.get_format_time())
-# print(c3.get_format_time())
+print(c3.get_format_time())
+
+#  _________________________

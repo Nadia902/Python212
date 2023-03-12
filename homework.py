@@ -638,27 +638,93 @@
 
 #  --------homework25-----------
 
-class Student:
-    def __init__(self, name):
-        self.name = name
-        self.note = self.Notebook()
+# class Student:
+#     def __init__(self, name):
+#         self.name = name
+#         self.note = self.Notebook()
+#
+#     def show(self):
+#         print(self.name, end=" ")
+#         self.note.show()
+#
+#     class Notebook:
+#         def __init__(self):
+#             self.brand = 'HP'
+#             self.cpu = 'i7'
+#             self.ram = 16
+#
+#         def show(self):
+#             print(f" => {self.brand}, {self.cpu}, {self.ram}")
+#
+#
+# s1 = Student("Roman")
+# s2 = Student("Vladimir")
+#
+# s1.show()
+# s2.show()
 
-    def show(self):
-        print(self.name, end=" ")
-        self.note.show()
+#  --------homework26-----------
 
-    class Notebook:
-        def __init__(self):
-            self.brand = 'HP'
-            self.cpu = 'i7'
-            self.ram = 16
+class Clock:
+    __DAY = 86400
 
-        def show(self):
-            print(f" => {self.brand}, {self.cpu}, {self.ram}")
+    def __init__(self, sec: int):
+        if not isinstance(sec, int):
+            raise ValueError("Секунды должны быть целым числом")
+        self.sec = sec % self.__DAY
+
+    def get_format_time(self):
+        s = self.sec % 60
+        m = (self.sec // 60) % 60
+        h = (self.sec // 3600) % 24
+        return f"{Clock.__get_form(h)}:{Clock.__get_form(m)}:{Clock.__get_form(s)}"
+
+    @staticmethod
+    def __get_form(x):
+        return str(x) if x > 9 else "0" + str(x)
+
+    def __add__(self, other):
+        if not isinstance(other, Clock):
+            raise ArithmeticError("Правый операнд должен быть типом Clock")
+        return Clock(self.sec + other.sec)
+
+    def __sub__(self, other):
+        if not isinstance(other, Clock):
+            raise ArithmeticError("Правый операнд должен быть типом Clock")
+        return Clock(self.sec - other.sec)
+
+    def __mul__(self, other):
+        if not isinstance(other, Clock):
+            raise ArithmeticError("Правый операнд должен быть типом Clock")
+        return Clock(self.sec * other.sec)
+
+    def __floordiv__(self, other):
+        if not isinstance(other, Clock):
+            raise ArithmeticError("Правый операнд должен быть типом Clock")
+        return Clock(self.sec // other.sec)
+
+    def __mod__(self, other):
+        if not isinstance(other, Clock):
+            raise ArithmeticError("Правый операнд должен быть типом Clock")
+        return Clock(self.sec % other.sec)
 
 
-s1 = Student("Roman")
-s2 = Student("Vladimir")
-
-s1.show()
-s2.show()
+c1 = Clock(600)
+c2 = Clock(200)
+c3 = c1 - c2
+print("c1:", c1.get_format_time())
+print("c1 - c2:", c3.get_format_time())
+c3 = c1 * c2
+print("c1 * c2:", c3.get_format_time())
+c3 = c1 // c2
+print("c1 // c2:", c3.get_format_time())
+c3 = c1 % c2
+print("c1 % c2:", c3.get_format_time())
+c1 -= c2
+print("c1 -= c2:", c1.get_format_time())
+c1 *= c2
+print("c1 *= c2:", c1.get_format_time())
+c1 //= c2
+print("c1 //= c2:", c1.get_format_time())
+c1 %= c2
+print("c1 %= c2:", c1.get_format_time())
