@@ -5954,16 +5954,16 @@ import math
 # print(cat)
 
 
-class Point:
-    def __init__(self, *args):
-        self.coord = args
-
-    def __len__(self):
-        return len(self.coord)
-
-
-p = Point(3, 1, 2)
-print(len(p))
+# class Point:
+#     def __init__(self, *args):
+#         self.coord = args
+#
+#     def __len__(self):
+#         return len(self.coord)
+#
+#
+# p = Point(3, 1, 2)
+# print(len(p))
 #  ___________________
 
 
@@ -5986,7 +5986,7 @@ print(len(p))
 #
 #     def info(self):
 #         super().info()
-#         print(f"{self.last_name} {self.first_name} {self.age}", end=" ")
+#         print(f"{self.speciality} {self.group} {self.rating}", end=" ")
 #
 #
 # class Teacher(Human):
@@ -6082,7 +6082,7 @@ print(len(p))
 # pt3.z = 30
 # print(pt3.x, pt3.y, pt3.z)
 
-
+#
 # Функторы
 
 # class Counter:
@@ -6162,6 +6162,7 @@ print(len(p))
 # @MyDecorator
 # def func1(a, b):
 #     return a * b
+#
 #
 # @MyDecorator
 # def func2(a, b):
@@ -6273,42 +6274,45 @@ print(len(p))
 
 
 # Дескрипторы
-#
-# class String:
-#     def __init__(self, value=None):
-#         if value:
-#             self.set(value)
-#
-#     def set(self, value):
-#         self.__value = value
-#
-#     def get(self):
-#         return self.__value
-#
-#
-# class Person:
-#     def __init__(self, name, surname):
-#         self.name = String(name)
-#         self.surname = String(surname)
-#
-#     @property
-#     def name(self):
-#         return self.__name
-#
-#     @name.setter
-#     def name(self, value):
-#         self.__name = value
-#
-#     @property
-#     def surname(self):
-#         return self.__surname
-#
-#     @surname.setter
-#     def surname(self, value):
-#         self.__surname = value
-#
-#
-# p = Person("Иван", "Петров")
-# p.name.set("Владимир")
+
+
+class String:
+    def __init__(self, value=None):
+        if value:
+            self.set(value)
+
+    def set(self, value):
+        self.__value = value
+
+    def get(self):
+        return self.__value
+
+
+class Person:
+    def __init__(self, name, surname):
+        self.name = String(name)
+        self.surname = String(surname)
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        self.__name = value
+
+    @property
+    def surname(self):
+        return self.__surname
+
+    @surname.setter
+    def surname(self, value):
+        self.__surname = value
+
+
+p = Person("Иван", "Петров")
+p.name.set("Владимир")
+print(p.name.get())
+#  __________________________
 
 
