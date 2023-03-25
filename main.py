@@ -6272,47 +6272,366 @@ import math
 # print(obj.quad(4))
 # print(obj.double(4))
 
-
+#  ____________
 # Дескрипторы
+# __get__()
+# __set__()
+# __delete__()
+# __set_name__()
+
+# class String:
+#     def __init__(self, value=None):
+#         if value:
+#             self.set(value)
+#
+#     def set(self, value):
+#         if not isinstance(value, str):
+#             raise TypeError(f"{value} должно быть строкой")
+#         self.__value = value
+#
+#     def get(self):
+#         return self.__value
+#
+#
+# class Person:
+#     def __init__(self, name, surname):
+#         self.name = String(name)
+#         self.surname = String(surname)
+#
+#     # @property
+#     # def name(self):
+#     #     return self.__name
+#     #
+#     # @name.setter
+#     # def name(self, value):
+#     #     self.__name = value
+#     #
+#     # @property
+#     # def surname(self):
+#     #     return self.__surname
+#     #
+#     # @surname.setter
+#     # def surname(self, value):
+#     #     self.__surname = value
+#
+#
+# p = Person("Иван", "Петров")
+# # p.name.set('Владимир')
+# print(p.name.get())
+
+# class ValidString:
+#     def __set_name__(self, owner, name):
+#         self.__name = name
+#
+#     def __get__(self, instance, owner):
+#         # print(owner)
+#         return instance.__dict__[self.__name]
+#
+#     def __set__(self, instance, value):
+#         if not isinstance(value, str):
+#             raise ValueError(f"{self.__name} должно быть строкой")
+#         instance.__dict__[self.__name] = value
+#
+#
+# class Person:
+#     name = ValidString()
+#     surname = ValidString()
+#
+#     def __init__(self, name, surname):
+#         self.name = name
+#         self.surname = surname
+#
+#
+# p = Person("Иван", "Петров")
+# p.surname = "Иванов"
+# print(p.name)
+# print(p.surname)
+# print(p.__dict__)
+#
+# print("*" * 20)
+
+# class NoneNegative:
+#     def __set_name__(self, owner, name):
+#         self.name = name
+#
+#     def __get__(self, instance, owner):
+#         return instance.__dict__[self.name]
+#
+#     def __set__(self, instance, value):
+#         if value < 0:
+#             raise ValueError("Значение должно быть положительным")
+#         instance.__dict__[self.name] = value
+#
+#
+# class Order:
+#     price = NoneNegative()
+#     quantity = NoneNegative()
+#
+#     def __init__(self, name, price, quantity):
+#         self.name = name
+#         self.price = price
+#         self.quantity = quantity
+#
+#     def total(self):
+#         return self.price * self.quantity
+#
+#
+# apple = Order('apple', 5, 10)
+# apple.price = 10
+# print(apple.total())
+
+class Integer:
+    @staticmethod
+    def verify_coord(coord):
+        if not isinstance(coord, int):
+            raise TypeError(f"Координата {coord} должна быть целым числом")
+
+    def __set_name__(self, owner, name):
+        self.name = '_' + name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__[self.name]
+
+    def __set__(self, instance, value):
+        self.verify_coord(value)
+        instance.__dict__[self.name] = value
 
 
-class String:
-    def __init__(self, value=None):
-        if value:
-            self.set(value)
+class Point3D:
+    x = Integer()
+    y = Integer()
+    z = Integer()
 
-    def set(self, value):
-        self.__value = value
-
-    def get(self):
-        return self.__value
-
-
-class Person:
-    def __init__(self, name, surname):
-        self.name = String(name)
-        self.surname = String(surname)
-
-    @property
-    def name(self):
-        return self.__name
-
-    @name.setter
-    def name(self, value):
-        self.__name = value
-
-    @property
-    def surname(self):
-        return self.__surname
-
-    @surname.setter
-    def surname(self, value):
-        self.__surname = value
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
 
 
-p = Person("Иван", "Петров")
-p.name.set("Владимир")
-print(p.name.get())
-#  __________________________
+p1 = Point3D(1, 2, 3)
+# p1.x = -5
+print(p1.x)
+print(p1.__dict__)
+
+# from geometry import rect, sq, trian
+#
+# r1 = rect.Rectangle(1, 2)
+# r2 = rect.Rectangle(3, 4)
+#
+# s1 = sq.Square(10)
+# s2 = sq.Square(20)
+#
+# t1 = trian.Triangle(1, 2, 3)
+# t2 = trian.Triangle(4, 5, 6)
+#
+# shape = [r1, r2, s1, s2, t1, t2]
+#
+# for g in shape:
+#     print(g.get_perimetr())
+
+# from car import electrocar
+#
+#
+# def run():
+#     print("Hello")
+#     car1 = electrocar.ElectroCar('Tesla', 'T', 2018, 99000)
+#     car1.show_car()
+#     car1.description_battery()
+#
+#
+# if __name__ == '__main__':
+#     run()
+
+# Упаковка данных (сериализация)
+# Распаковка данных (десериализация)
+
+# marshal  (*.pyc)
+# pickle
+# json
+
+# dump() - сохраняет данные в открытый файл
+# load() - считывает данные тз файла
+
+# dumps() - сохраняет данные в строку
+# loads() - считывает данные из строки
+
+# import pickle
+
+# file_name = 'basket.txt'
+#
+# shop_list = {
+#     'фрукты': ['яблоки', 'манго'],
+#     'овощи': 'морковь',
+#     'бюджет': 1000
+# }
+#
+# with open(file_name, 'wb') as fh:
+#     pickle.dump(shop_list, fh)
+#
+# with open(file_name, 'rb') as fh:
+#     shop_list2 = pickle.load(fh)
+# print(shop_list2)
+
+
+# class Test:
+#     num = 35
+#     st = 'привет'
+#     lst = [1, 2, 3]
+#     d = {'first': 'a', 'second': 2}
+#     tpl = (22, 63)
+#
+#     def __str__(self):
+#         return f"Число: {Test.num}\nСтрока: {Test.st}\nСписок: {Test.lst}\nСловарь: {Test.d}\nКортеж: {Test.tpl}"
+#
+#
+# obj = Test()
+#
+# my_obj = pickle.dumps(obj)
+# print(my_obj)
+#
+# my_obj2 = pickle.loads(my_obj)
+# print(my_obj2)
+
+
+# class Test2:
+#     def __init__(self):
+#         self.a = 35
+#         self.b = 'test'
+#         self.c = lambda x: x * x
+#
+#     def __str__(self):
+#         return f"{self.a} {self.b} {self.c(2)}"
+#
+#     def __getstate__(self):
+#         attr = self.__dict__.copy()
+#         del attr['c']
+#         return attr
+#
+#     def __setstate__(self, state):
+#         self.__dict__ = state
+#         self.c = lambda x: x * x
+#
+#
+# item1 = Test2()
+# item2 = pickle.dumps(item1)
+# item3 = pickle.loads(item2)
+# print(item3.__dict__)
+# print(item3)
+
+
+# import json
+
+# data = {
+#     'name': 'Olga',
+#     'age': 35,
+#     20: None,
+#     True: 1,
+#     'hobbies': ('running', 'singing'),
+#     'children': [
+#         {
+#             'first_name': 'Alice',
+#             'age': 6
+#         }
+#     ]
+# }
+#
+# # with open('data.json', 'w') as fw:
+# #     json.dump(data, fw, indent=4)
+# #
+# # with open('data.json', 'r') as fw:
+# #     data1 = json.load(fw)
+# # print(data1)
+# # print(data1['name'])
+#
+# json_string = json.dumps(data, sort_keys=True)
+# print(json_string)
+# print(json_string[10:14])
+#
+# data2 = json.loads(json_string)
+# print(data2)
+# print(data2['name'])
+
+# x = {
+#     'name': 'Виктор'
+# }
+#
+# a = {
+#     'name': 'Виктор'
+# }
+# a = json.dumps(x)
+# print(a)
+# print(json.loads(a))
+# print(json.dumps(x))
+# print(json.dumps(x)
+
+# import json
+# from random import choice
+#
+#
+# def gen_person():
+#     name = ''
+#     tel = ''
+#
+#     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+#     nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+#
+#     while len(name) != 7:
+#         name += choice(letters)
+#     # print(name)
+#
+#     while len(tel) != 10:
+#         tel += choice(nums)
+#     # print(tel)
+#
+#     person = {
+#         'name': name,
+#         'tel': tel
+#     }
+#     return person
+#
+#
+# def write_json(person_dict):
+#     try:
+#         data = json.load(open('person.json'))
+#     except FileNotFoundError:
+#         data = []
+#
+#     data.append(person_dict)
+#     with open('person.json', 'w') as f:
+#         json.dump(data, f, indent=2)
+#
+#
+# for i in range(5):
+#     write_json(gen_person())
+
+# class Student:
+#     def __init__(self, name, marks):
+#         self.name = name
+#         self.marks = marks
+#
+#     def __str__(self):
+#        a = ', '.join(map(str, self.marks))
+#        return f"Студент: {self.name}: {a}"
+#
+#     def add_mark(self, mark):
+#        self.marks.append(mark)
+#
+#     def delete_mark(self, index):
+#         self.marks.pop(index)
+#
+#
+# st1 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
+# st2 = Student('Nikcolaenko', [5, 4, 3, 4, 5, 3])
+# st3 = Student('Birukov', [5, 4, 3, 4, 5, 3])
+# st4 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
+# print(st1)
+# st1.add_mark(4)
+# print(st1)
+# st1.delete_mark(2)
+# print(st1)
+# st1.edit_mark(4, 5)
+# print(st1)
+# print(st1.average_mark())
+
 
 

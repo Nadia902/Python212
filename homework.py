@@ -808,107 +808,152 @@
 # print("Запись значения в координату x:", p1["x"])
 
 
-#  --------homework28-----------
-from abc import ABC, abstractmethod
-from math import sqrt
+# --------homework28-----------
+# from abc import ABC, abstractmethod
+# from math import sqrt
+#
+#
+# class Shape(ABC):
+#     def __init__(self, col):
+#         self.col = col
+#
+#     @abstractmethod
+#     def __call__(self):
+#         ...
+#
+#     @abstractmethod
+#     def area(self):
+#         print("Площадь: ", end="")
+#
+#     @abstractmethod
+#     def perimetr(self):
+#         print("Периметр: ", end="")
+#
+#     @abstractmethod
+#     def draw(self):
+#         pass
+#
+#
+# class Square(Shape):
+#     def __init__(self, s, col):
+#         self.s = s
+#         super().__init__(col)
+#
+#     def __call__(self):
+#         print(f"===Квадрат===\nСторона: {self.s}\nЦвет: {self.col}")
+#
+#     def area(self):
+#         super().area()
+#         print(self.s ** 2)
+#
+#     def perimetr(self):
+#         super().perimetr()
+#         print(4 * self.s)
+#
+#     def draw(self):
+#         for i in range(self.s):
+#             print('*' * self.s)
+#
+#
+# class Rectangle(Shape):
+#     def __init__(self, length, width, col):
+#         self.length = length
+#         self.width = width
+#         super().__init__(col)
+#
+#     def __call__(self):
+#         print(f"===Прямоугольник===\nДлина: {self.length}\nШирина: {self.width}\nЦвет: {self.col}")
+#
+#     def area(self):
+#         super().area()
+#         print(self.length * self.width)
+#
+#     def perimetr(self):
+#         super().perimetr()
+#         print((self.length + self.width)*2)
+#
+#     def draw(self):
+#         for i in range(self.length):
+#             print('*' * self.width)
+#
+#
+# class Triangle(Shape):
+#     def __init__(self, s1, s2, s3, col):
+#         self.s1 = s1
+#         self.s2 = s2
+#         self.s3 = s3
+#         super().__init__(col)
+#
+#     def __call__(self):
+#         print(f"===Треугольник==\nСторона 1: {self.s1}\nСторона 2: {self.s2}\nСторона 3: {self.s3}\nЦвет: {self.col}")
+#
+#     def area(self):
+#         super().area()
+#         print(round((self.s1 / 4) * (sqrt(4 * self.s2 ** 2 - self.s1 ** 2)), 2))
+#
+#     def perimetr(self):
+#         super().perimetr()
+#         print(self.s1 + self.s2 + self.s3)
+#
+#     def draw(self):
+#         for i in range(self.s2):
+#             print(' ' * (self.s2 - 1 - i) + '*' * (1 + i * 2))
+#
+#
+# p1 = Square(3, "red")
+# p2 = Rectangle(3, 7, "green")
+# p3 = Triangle(11, 6, 6, "yellow")
+# px = [p1, p2, p3]
+#
+# for x in px:
+#     x()
+#     x.area()
+#     x.perimetr()
+#     x.draw()
+#     print()
+#     print()
+#
+# # def draw(self):
+# #     rows = []
+# #     for n in range(self.side_y):
+# #         rows.append(" " * n "*" * (self.side_x - 2 * n))
+# #     print("\n".join(reversed(rows)))
+
+# --------homework29-----------
+
+class Integer:
+    def __set_name__(self, owner, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__[self.name]
+
+    def __set__(self, instance, value):
+        if not isinstance(value, int) or value <= 0:
+            raise ValueError(f"Координата {value} должна быть целым, положительным числом")
+        instance.__dict__[self.name] = value
 
 
-class Shape(ABC):
-    def __init__(self, col):
-        self.col = col
+class Triangle:
+    s1 = Integer()
+    s2 = Integer()
+    s3 = Integer()
 
-    @abstractmethod
-    def __call__(self):
-        ...
-
-    @abstractmethod
-    def area(self):
-        print("Площадь: ", end="")
-
-    @abstractmethod
-    def perimetr(self):
-        print("Периметр: ", end="")
-
-    @abstractmethod
-    def draw(self):
-        pass
-
-
-class Square(Shape):
-    def __init__(self, s, col):
-        self.s = s
-        super().__init__(col)
-
-    def __call__(self):
-        print(f"===Квадрат===\nСторона: {self.s}\nЦвет: {self.col}")
-
-    def area(self):
-        super().area()
-        print(self.s ** 2)
-
-    def perimetr(self):
-        super().perimetr()
-        print(4 * self.s)
-
-    def draw(self):
-        for i in range(self.s):
-            print('*' * self.s)
-
-
-class Rectangle(Shape):
-    def __init__(self, length, width, col):
-        self.length = length
-        self.width = width
-        super().__init__(col)
-
-    def __call__(self):
-        print(f"===Прямоугольник===\nДлина: {self.length}\nШирина: {self.width}\nЦвет: {self.col}")
-
-    def area(self):
-        super().area()
-        print(self.length * self.width)
-
-    def perimetr(self):
-        super().perimetr()
-        print((self.length + self.width)*2)
-
-    def draw(self):
-        for i in range(self.length):
-            print('*' * self.width)
-
-
-class Triangle(Shape):
-    def __init__(self, s1, s2, s3, col):
+    def __init__(self, s1, s2, s3):
         self.s1 = s1
         self.s2 = s2
         self.s3 = s3
-        super().__init__(col)
 
-    def __call__(self):
-        print(f"===Треугольник===\nСторона 1: {self.s1}\nСторона 2: {self.s2}\nСторона 3: {self.s3}\nЦвет: {self.col}")
-
-    def area(self):
-        super().area()
-        print(round((self.s1 / 4) * (sqrt(4 * self.s2 ** 2 - self.s1 ** 2)), 2))
-
-    def perimetr(self):
-        super().perimetr()
-        print(self.s1 + self.s2 + self.s3)
-
-    def draw(self):
-        for i in range(self.s2):
-            print(' ' * (self.s2 - 1 - i) + '*' * (1 + i * 2))
+    def triangle_test(self):
+        if self.s1 + self.s2 > self.s3 and self.s1 + self.s3 > self.s2 and self.s2 + self.s3 > self.s1:
+            return f"Треугольник со сторонами {self.s1, self.s2, self.s3} существует."
+        else:
+            return f"Треугольник со сторонами {self.s1, self.s2, self.s3} не существует."
 
 
-p1 = Square(3, "red")
-p2 = Rectangle(3, 7, "green")
-p3 = Triangle(11, 6, 6, "yellow")
-px = [p1, p2, p3]
-
-for x in px:
-    x()
-    x.area()
-    x.perimetr()
-    x.draw()
-    print()
-    print()
+p = Triangle(2, 5, 6)
+print(p.triangle_test())
+p = Triangle(5, 2, 8)
+print(p.triangle_test())
+p = Triangle(7, 3, 6)
+print(p.triangle_test())
