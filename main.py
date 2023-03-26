@@ -2,7 +2,7 @@
 # age = 20
 # print("Hello,", name_new)
 # print(type(age))
-import math
+# import math
 
 
 # a = b = c = 1
@@ -6380,38 +6380,38 @@ import math
 # apple.price = 10
 # print(apple.total())
 
-class Integer:
-    @staticmethod
-    def verify_coord(coord):
-        if not isinstance(coord, int):
-            raise TypeError(f"Координата {coord} должна быть целым числом")
-
-    def __set_name__(self, owner, name):
-        self.name = '_' + name
-
-    def __get__(self, instance, owner):
-        return instance.__dict__[self.name]
-
-    def __set__(self, instance, value):
-        self.verify_coord(value)
-        instance.__dict__[self.name] = value
-
-
-class Point3D:
-    x = Integer()
-    y = Integer()
-    z = Integer()
-
-    def __init__(self, x, y, z):
-        self.x = x
-        self.y = y
-        self.z = z
-
-
-p1 = Point3D(1, 2, 3)
-# p1.x = -5
-print(p1.x)
-print(p1.__dict__)
+# class Integer:
+#     @staticmethod
+#     def verify_coord(coord):
+#         if not isinstance(coord, int):
+#             raise TypeError(f"Координата {coord} должна быть целым числом")
+#
+#     def __set_name__(self, owner, name):
+#         self.name = '_' + name
+#
+#     def __get__(self, instance, owner):
+#         return instance.__dict__[self.name]
+#
+#     def __set__(self, instance, value):
+#         self.verify_coord(value)
+#         instance.__dict__[self.name] = value
+#
+#
+# class Point3D:
+#     x = Integer()
+#     y = Integer()
+#     z = Integer()
+#
+#     def __init__(self, x, y, z):
+#         self.x = x
+#         self.y = y
+#         self.z = z
+#
+#
+# p1 = Point3D(1, 2, 3)
+# # p1.x = -5
+# print(p1.x)
+# print(p1.__dict__)
 
 # from geometry import rect, sq, trian
 #
@@ -6450,7 +6450,7 @@ print(p1.__dict__)
 # json
 
 # dump() - сохраняет данные в открытый файл
-# load() - считывает данные тз файла
+# load() - считывает данные из файла
 
 # dumps() - сохраняет данные в строку
 # loads() - считывает данные из строки
@@ -6518,14 +6518,14 @@ print(p1.__dict__)
 # print(item3.__dict__)
 # print(item3)
 
-
+#
 # import json
-
+#
 # data = {
 #     'name': 'Olga',
 #     'age': 35,
-#     20: None,
-#     True: 1,
+#     '20': None,
+#     'True': 1,
 #     'hobbies': ('running', 'singing'),
 #     'children': [
 #         {
@@ -6534,14 +6534,14 @@ print(p1.__dict__)
 #         }
 #     ]
 # }
+
+# with open('data.json', 'w') as fw:
+#     json.dump(data, fw, indent=4)
 #
-# # with open('data.json', 'w') as fw:
-# #     json.dump(data, fw, indent=4)
-# #
-# # with open('data.json', 'r') as fw:
-# #     data1 = json.load(fw)
-# # print(data1)
-# # print(data1['name'])
+# with open('data.json', 'r') as fw:
+#     data1 = json.load(fw)
+# print(data1)
+# print(data1['name'])
 #
 # json_string = json.dumps(data, sort_keys=True)
 # print(json_string)
@@ -6555,14 +6555,11 @@ print(p1.__dict__)
 #     'name': 'Виктор'
 # }
 #
-# a = {
-#     'name': 'Виктор'
-# }
 # a = json.dumps(x)
 # print(a)
 # print(json.loads(a))
 # print(json.dumps(x))
-# print(json.dumps(x)
+# print(json.dumps(x, ensure_ascii=False))
 
 # import json
 # from random import choice
@@ -6632,6 +6629,3 @@ print(p1.__dict__)
 # st1.edit_mark(4, 5)
 # print(st1)
 # print(st1.average_mark())
-
-
-
