@@ -1,5 +1,5 @@
 /.idea
-/Lib
+/venv/Lib
 /Scripts
 pyvenv.cfg
 .gitignore
