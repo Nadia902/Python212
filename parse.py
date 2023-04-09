@@ -26,17 +26,17 @@ class Parser:
                 'href': href,
                 'author': author
             })
-            print(self.res)
-
-    def run(self):
-        self.get_html()
-        self.parsing()
-        self.save()
+        print(self.res)
 
     def save(self):
         with open(self.path, 'w') as f:
             i = 1
             for item in self.res:
-                f.write(f"Новсть № {i}\n\nНазвание: {item['title']}\nСсылка: {item['href']}\nАвтор: {item['author']}"
+                f.write(f"Новость № {i}\n\nНазвание: {item['title']}\nСсылка: {item['href']}\nАвтор: {item['author']}"
                         f"\n\n{'*' * 20}\n")
                 i += 1
+
+    def run(self):
+        self.get_html()
+        self.parsing()
+        self.save()

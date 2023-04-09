@@ -1098,39 +1098,108 @@
 
 # --------homework32-----------
 
+# import requests
+# from bs4 import BeautifulSoup
+# import csv
+#
+#
+# url = 'https://www.afisha.ru/tula/cinema/cinema_list/'
+# response = requests.get(url)
+# soup = BeautifulSoup(response.text, 'lxml')
+# sp1 = []
+# sp2 = []
+# sp3 = []
+# data = ["Кинотеатр", "Адрес", "Рейтинг"]
+# cinema = soup.find_all('h2', class_="mQ7Bh")
+# for plugin in cinema:
+#     name = plugin.text
+#     sp1.append(name)
+#
+# adress = soup.find_all('span', class_="MVlCc")
+# for plugin in adress:
+#     name = plugin.text
+#     sp2.append(name)
+#
+# raiting = soup.find_all('span', class_="nk8aV naF5F j3T41 Gfeb7 eqBUk aOiwv KXiGd")
+# for plugin in raiting:
+#     name = plugin.text
+#     sp3.append(name)
+#
+# with open('film.csv', 'a') as f:
+#     writer = csv.writer(f, delimiter=';', lineterminator='\r')
+#     writer.writerow(data)
+#     for i in range(len(sp1)):
+#         if i < len(sp3):
+#             writer.writerow([sp1[i], sp2[i], sp3[i]])
+#         else:
+#             writer.writerow([sp1[i], sp2[i], 'рейтинг отсутствует'])
+
+# --------homework33-----------
+
 import requests
 from bs4 import BeautifulSoup
+import re
 import csv
 
 
-url = 'https://www.afisha.ru/tula/cinema/cinema_list/'
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'lxml')
-sp1 = []
-sp2 = []
-sp3 = []
-data = ["Кинотеатр", "Адрес", "Рейтинг"]
-cinema = soup.find_all('h2', class_="mQ7Bh")
-for plugin in cinema:
-    name = plugin.text
-    sp1.append(name)
+class Parser:
+    html = ""
+    res = dict()
 
-adress = soup.find_all('span', class_="MVlCc")
-for plugin in adress:
-    name = plugin.text
-    sp2.append(name)
+    def __init__(self, url):
+        self.url = url
 
-raiting = soup.find_all('span', class_="nk8aV naF5F j3T41 Gfeb7 eqBUk aOiwv KXiGd")
-for plugin in raiting:
-    name = plugin.text
-    sp3.append(name)
+    def get_html(self):
+        req = requests.get(self.url).text
+        self.html = BeautifulSoup(req, 'lxml')
 
-with open('film.csv', 'a') as f:
-    writer = csv.writer(f, delimiter=';', lineterminator='\r')
-    writer.writerow(data)
-    for i in range(len(sp1)):
-        if i < len(sp3):
-            writer.writerow([sp1[i], sp2[i], sp3[i]])
+    @staticmethod
+    def refined(price):
+        return re.sub(r"\D+", "", price)
+
+    def parsing(self):
+        block = self.html.find_all('article')
+        for item in block:
+            name = item.find('div', class_='product-title__head').text.strip()
+            try:
+                author = item.find('div', class_="product-title__author").text.strip()
+            except AttributeError:
+                author = ''
+            try:
+                price = item.find('div', class_="product-price__value product-price__value--discount").text.strip()
+            except AttributeError:
+                try:
+                    price = item.find('div', class_="product-price__value").text.strip()
+                except AttributeError:
+                    price = ''
+            int_price = self.refined(price)
+
+            self.res = {
+                'name': name,
+                'author': author,
+                'price': int_price
+            }
+            self.save(self.res)
+
+    @staticmethod
+    def save(lst):
+        with open('books.csv', 'a') as f:
+            writer = csv.writer(f, delimiter=';', lineterminator='\r')
+            writer.writerow((lst['name'], lst['author'], lst['price']))
+
+    def run(self):
+        self.get_html()
+        self.parsing()
+
+
+def main():
+    for i in range(1, 7):
+        if i == 1:
+            pars = Parser('https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721')
         else:
-            writer.writerow([sp1[i], sp2[i], 'рейтинг отсутствует'])
+            pars = Parser(f'https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721?page={i}')
+        pars.run()
 
+
+if __name__ == '__main__':
+    main()

@@ -7089,7 +7089,6 @@
 #     else:
 #         print("Введен некорректный номер")
 
-
 # import requests
 # from bs4 import BeautifulSoup
 # import csv
@@ -7105,14 +7104,14 @@
 #
 #
 # def write_csv(data):
-#     with open('pludins1.csv', 'a') as f:
+#     with open('plugins1.csv', 'a', encoding='utf-8-sig') as f:
 #         writer = csv.writer(f, delimiter=';', lineterminator='\r')
-#         writer.writerow((data['name'], ))
+#         writer.writerow((data['name'], data['url'], data['snippet'], data['active_install'], data['tests']))
 #
 #
 # def get_data(html):
 #     soup = BeautifulSoup(html, "lxml")
-#     element = soup.find_all('article', class_='plugins-card')
+#     element = soup.find_all('article', class_='plugin-card')
 #     for el in element:
 #         try:
 #             name = el.find('h3').text
@@ -7130,7 +7129,7 @@
 #             snippet = ''
 #
 #         try:
-#             active = el.find('span', class_="active-installs").text
+#             active = el.find('span', class_="active-installs").text.strip()
 #         except ValueError:
 #             active = ''
 #
@@ -7152,8 +7151,8 @@
 #
 #
 # def main():
-#     for i in range(5, 10):
-#         url = f'https://ru.wordpress.org/plugins/browse/blocks/{i}/'
+#     for i in range(9, 26):
+#         url = f'https://ru.wordpress.org/plugins/browse/blocks/page/{i}/'
 #         get_data(get_html(url))
 #
 #
@@ -7170,23 +7169,80 @@
 #
 # if __name__ == '__main__':
 #     main()
-
 # ______________________
 
-import socket
+# import socket
+#
+#
+# def run():
+#     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     server_socket.bind(('127.0.0.1', 5000))
+#     server_socket.listen()
+#
+#     while True:
+#         client_socket, addr = server_socket.accept()
+#         request = client_socket.recv(1024)
+#
+#         print(f"Клиент: {addr} => \n{request}\n")
+#
+#
+# if __name__ == '__main__':
+#     run()
+
+# _______________
+
+import requests
+from bs4 import BeautifulSoup
+import re
+import csv
 
 
-def run():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('127.0.0.1', 5000))
-    server_socket.listen()
+def get_html(url):
+    res = requests.get(url)
+    return res.text
 
-    while True:
-        client_socket, addr = server_socket.accept()
-        request = client_socket.recv(1024)
 
-        print(f"Клиент: {addr} => \n{request}\n")
+def refined(s):
+    return re.sub(r"\D+", "", s)
+
+
+def write_csv(data):
+    with open('plugins.csv', 'a') as f:
+        writer = csv.writer(f, delimiter=';', lineterminator='\r')
+
+        writer.writerow((data['name'], data['url'], data['rating']))
+
+
+def get_data(html):
+    soup = BeautifulSoup(html, "lxml")
+    plugins = soup.find_all('article')
+
+    for plugin in plugins:
+        name = plugin.find('div', class_='product-title__head').text.strip()
+        try:
+            url = plugin.find('div', class_="product-title__author").text.strip()
+        except AttributeError:
+            url = ''
+        try:
+            rating = plugin.find('div', class_="product-price__value product-price__value--discount").text.strip()
+        except AttributeError:
+            try:
+                rating = plugin.find('div', class_="product-price__value").text.strip()
+            except AttributeError:
+                rating = ''
+        r = refined(rating)
+        data = {'name': name, "url": url, "rating": r}
+        write_csv(data)
+
+
+def main():
+    for i in range(1, 7):
+        if i == 1:
+            url = ('https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721')
+        else:
+            url = (f'https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721?page={i}')
+        get_data(get_html(url))
 
 
 if __name__ == '__main__':
-    run()
+    main()
