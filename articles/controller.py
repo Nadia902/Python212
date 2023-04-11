@@ -1,10 +1,11 @@
 from view import UserInterface
+from model import ArticleModel
 
 
 class Controller:
     def __init__(self):
-        self.article_model = None
-        self.user_interface = None
+        self.article_model = ArticleModel()
+        self.user_interface = UserInterface()
 
     def run(self):
         answer = None

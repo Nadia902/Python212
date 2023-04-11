@@ -7172,6 +7172,42 @@
 # ______________________
 
 # import socket
+# from view import index, blog
+#
+# URLS = {
+#     '/': index,
+#     '/blog': blog
+# }
+#
+#
+# def parse_request(request):
+#     parsed = request.split()
+#     method = parsed[0]
+#     url = parsed[1]
+#     return method, url
+#
+#
+# def generate_headers(method, url):
+#     if method != "GET":
+#         return 'HTTP/1.1 405 Method Not Allowed!\n\n', 405
+#     if url not in URLS:
+#         return 'HTTP/1.1 404 Page Not Found!\n\n', 404
+#     return 'HTTP/1.1 200 OK!\n\n', 200
+#
+#
+# def generate_content(code, url):
+#     if code == 404:
+#         return '<h1>404</h1><h3>Page not found!</h3>'
+#     elif code == 405:
+#         return '<h1>404</h1><h3>Method not allowed!</h3>'
+#     return URLS[url]()
+#
+#
+# def generate_response(request):
+#     method, url = parse_request(request)
+#     headers, code = generate_headers(method, url)
+#     body = URLS.get(url, 'Errors 404')
+#     return (headers + body).encode()
 #
 #
 # def run():
@@ -7183,66 +7219,41 @@
 #         client_socket, addr = server_socket.accept()
 #         request = client_socket.recv(1024)
 #
-#         print(f"Клиент: {addr} => \n{request}\n")
+#         print(f"Клиент: {addr} => \n{request.decode('utf-8')}\n")
+#
+#         response = generate_response(request.decode())
+#         client_socket.sendall(response)
+#         client_socket.close()
 #
 #
 # if __name__ == '__main__':
 #     run()
 
-# _______________
+# СУБД (система управления базами данных)
+# SQL (язык структуированных запросов)
 
-import requests
-from bs4 import BeautifulSoup
-import re
-import csv
+# *.db, *.sqlite, *.sqlite3, *.sdb, *.db2
 
 
-def get_html(url):
-    res = requests.get(url)
-    return res.text
+import sqlite3
+
+# con = sqlite3.connect("profile.db")
+# cur = con.cursor()
+#
+#
+# con.close()
+
+with sqlite3.connect("profile.db") as con:
+    cur = con.cursor()
+    # cur.execute("""CREATE TABLE IF NOT EXISTS user(
+    # id INTEGER PRIMARY KEY AUTOINCREMENT,
+    # name TEXT NOT NULL,
+    # summa REAL,
+    # date TEXT
+    # )
+    # """)
+    cur.execute("DROP TABLE user")
 
 
-def refined(s):
-    return re.sub(r"\D+", "", s)
 
 
-def write_csv(data):
-    with open('plugins.csv', 'a') as f:
-        writer = csv.writer(f, delimiter=';', lineterminator='\r')
-
-        writer.writerow((data['name'], data['url'], data['rating']))
-
-
-def get_data(html):
-    soup = BeautifulSoup(html, "lxml")
-    plugins = soup.find_all('article')
-
-    for plugin in plugins:
-        name = plugin.find('div', class_='product-title__head').text.strip()
-        try:
-            url = plugin.find('div', class_="product-title__author").text.strip()
-        except AttributeError:
-            url = ''
-        try:
-            rating = plugin.find('div', class_="product-price__value product-price__value--discount").text.strip()
-        except AttributeError:
-            try:
-                rating = plugin.find('div', class_="product-price__value").text.strip()
-            except AttributeError:
-                rating = ''
-        r = refined(rating)
-        data = {'name': name, "url": url, "rating": r}
-        write_csv(data)
-
-
-def main():
-    for i in range(1, 7):
-        if i == 1:
-            url = ('https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721')
-        else:
-            url = (f'https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721?page={i}')
-        get_data(get_html(url))
-
-
-if __name__ == '__main__':
-    main()
