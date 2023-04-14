@@ -7199,14 +7199,14 @@
 #     if code == 404:
 #         return '<h1>404</h1><h3>Page not found!</h3>'
 #     elif code == 405:
-#         return '<h1>404</h1><h3>Method not allowed!</h3>'
+#         return '<h1>405</h1><h3>Method not allowed!</h3>'
 #     return URLS[url]()
 #
 #
 # def generate_response(request):
 #     method, url = parse_request(request)
 #     headers, code = generate_headers(method, url)
-#     body = URLS.get(url, 'Errors 404')
+#     body = generate_content(code, url)
 #     return (headers + body).encode()
 #
 #
@@ -7245,15 +7245,53 @@ import sqlite3
 
 with sqlite3.connect("profile.db") as con:
     cur = con.cursor()
-    # cur.execute("""CREATE TABLE IF NOT EXISTS user(
-    # id INTEGER PRIMARY KEY AUTOINCREMENT,
-    # name TEXT NOT NULL,
-    # summa REAL,
-    # date TEXT
-    # )
-    # """)
+    cur.execute("""CREATE TABLE IF NOT EXISTS user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    summa REAL,
+    date TEXT
+    )
+    """)
     cur.execute("DROP TABLE user")
 
+# __________________
+# import sqlite3
+#
+# # with sqlite3.connect("users.db") as con:
+# #     cur = con.cursor()
+# #
+# #     cur.execute("""
+# #     DROP TABLE person_table;
+# #     """)
+#
+#
+#     # cur.execute("""CREATE TABLE IF NOT EXISTS person(
+#     # id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     # name TEXT NOT NULL,
+#     # phone BLOB NOT NULL DEFAULT '+79090000000',
+#     # age INTEGER NOT NULL CHECK(age > 0 AND age < 100),
+#     # email TEXT UNIQUE
+#     # )""")
+#     # cur.execute("""
+#     # ALTER TABLE person
+#     # RENAME TO person_table;
+#     # """)
+#
+# with sqlite3.connect("db_4.db") as con:
+#     cur = con.cursor()
+#     cur.execute("""
+#     SELECT *
+#     FROM Ware
+#     ORDER BY Price DESC
+#     LIMIT 2, 5
+#     """)
+#
+#     # res = cur.fetchall()
+#     # print(res)
+#     for res in cur:
+#         print(res)
 
-
-
+    # res = cur.fetchone()
+    # print(res)
+    # res2 = cur.fetchmany(10)
+    # print(res2)
