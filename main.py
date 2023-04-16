@@ -7243,40 +7243,39 @@ import sqlite3
 #
 # con.close()
 
-with sqlite3.connect("profile.db") as con:
-    cur = con.cursor()
-    cur.execute("""CREATE TABLE IF NOT EXISTS user(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    summa REAL,
-    date TEXT
-    )
-    """)
-    cur.execute("DROP TABLE user")
+# with sqlite3.connect("profile.db") as con:
+#     cur = con.cursor()
+#     cur.execute("""CREATE TABLE IF NOT EXISTS user(
+#     id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     name TEXT NOT NULL,
+#     summa REAL,
+#     date TEXT
+#     )
+#     """)
+#     cur.execute("DROP TABLE user")
 
 # __________________
-# import sqlite3
-#
-# # with sqlite3.connect("users.db") as con:
-# #     cur = con.cursor()
+import sqlite3
+
+with sqlite3.connect("users.db") as con:
+    cur = con.cursor()
+
+    # cur.execute("""
+    # DROP TABLE person_table;
+    # """)
+
+    # cur.execute("""CREATE TABLE IF NOT EXISTS person(
+    # id INTEGER PRIMARY KEY AUTOINCREMENT,
+    # name TEXT NOT NULL,
+    # phone BLOB NOT NULL DEFAULT '+79090000000',
+    # age INTEGER NOT NULL CHECK(age > 0 AND age < 100),
+    # email TEXT UNIQUE
+    # )""")
+#     cur.execute("""
+#     ALTER TABLE person
+#     RENAME TO person_table;
+#     """)
 # #
-# #     cur.execute("""
-# #     DROP TABLE person_table;
-# #     """)
-#
-#
-#     # cur.execute("""CREATE TABLE IF NOT EXISTS person(
-#     # id INTEGER PRIMARY KEY AUTOINCREMENT,
-#     # name TEXT NOT NULL,
-#     # phone BLOB NOT NULL DEFAULT '+79090000000',
-#     # age INTEGER NOT NULL CHECK(age > 0 AND age < 100),
-#     # email TEXT UNIQUE
-#     # )""")
-#     # cur.execute("""
-#     # ALTER TABLE person
-#     # RENAME TO person_table;
-#     # """)
-#
 # with sqlite3.connect("db_4.db") as con:
 #     cur = con.cursor()
 #     cur.execute("""
