@@ -1,17 +1,17 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
-
-from models.database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
 
 from sqlalchemy.orm import relationship
 
+from models.database import Base
 
-association_table = Table('assiation', Base.metadata,
+
+association_table = Table('association', Base.metadata,
                           Column('lesson_id', Integer, ForeignKey('lessons.id')),
                           Column('group_id', Integer, ForeignKey('groups.id')))
 
 
 class Lesson(Base):
-    __tablename__ = 'Lessons'
+    __tablename__ = 'lessons'
 
     id = Column(Integer, primary_key=True)
     lesson_title = Column(String(250), nullable=False)
@@ -19,4 +19,3 @@ class Lesson(Base):
 
     def __repr__(self):
         return f"Предмет (ID: {self.id}, Название: {self.lesson_title})"
-
