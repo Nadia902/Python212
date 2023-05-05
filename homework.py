@@ -1136,70 +1136,219 @@
 
 # --------homework33-----------
 
-import requests
-from bs4 import BeautifulSoup
-import re
-import csv
+# import requests
+# from bs4 import BeautifulSoup
+# import re
+# import csv
+#
+#
+# class Parser:
+#     html = ""
+#     res = dict()
+#
+#     def __init__(self, url):
+#         self.url = url
+#
+#     def get_html(self):
+#         req = requests.get(self.url).text
+#         self.html = BeautifulSoup(req, 'lxml')
+#
+#     @staticmethod
+#     def refined(price):
+#         return re.sub(r"\D+", "", price)
+#
+#     def parsing(self):
+#         block = self.html.find_all('article')
+#         for item in block:
+#             name = item.find('div', class_='product-title__head').text.strip()
+#             try:
+#                 author = item.find('div', class_="product-title__author").text.strip()
+#             except AttributeError:
+#                 author = ''
+#             try:
+#                 price = item.find('div', class_="product-price__value product-price__value--discount").text.strip()
+#             except AttributeError:
+#                 try:
+#                     price = item.find('div', class_="product-price__value").text.strip()
+#                 except AttributeError:
+#                     price = ''
+#             int_price = self.refined(price)
+#
+#             self.res = {
+#                 'name': name,
+#                 'author': author,
+#                 'price': int_price
+#             }
+#             self.save(self.res)
+#
+#     @staticmethod
+#     def save(lst):
+#         with open('books.csv', 'a') as f:
+#             writer = csv.writer(f, delimiter=';', lineterminator='\r')
+#             writer.writerow((lst['name'], lst['author'], lst['price']))
+#
+#     def run(self):
+#         self.get_html()
+#         self.parsing()
+#
+#
+# def main():
+#     for i in range(1, 7):
+#         if i == 1:
+#             pars = Parser('https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721')
+#         else:
+#             pars = Parser(f'https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721?page={i}')
+#         pars.run()
+#
+#
+# if __name__ == '__main__':
+#     main()
+
+# -------------homework61----------
+# ------------1------------
+from jinja2 import Template
+
+lst = [
+    {'href': '/index', 'text': 'Главная'},
+    {'href': '/news', 'text': 'Новости'},
+    {'href': '/about', 'text': 'О компании'},
+    {'href': '/shop', 'text': 'Магазин'},
+    {'href': '/contacts', 'text': 'Контакты'},
+]
+
+link = """<ul>
+{% for l in lst -%}
+{% if l.text == 'Главная' -%}
+    <li><a href="{{ l['href'] }}" class="active">{{ l['text'] }}</a></li>
+{% else -%}
+    <li><a href="{{ l['href'] }}">{{ l['text'] }}</a></li>
+{% endif -%}
+{% endfor -%}
+</ul>
+"""
+
+tm = Template(link)
+msg = tm.render(lst=lst)
+
+print(msg)
+
+# ------------2------------
+
+# from sqlalchemy import create_engine, Column, Integer, String
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.orm import sessionmaker
+# from faker import Faker
+# from sqlalchemy import and_, or_, not_, desc, func, distinct, text
+# import os
+# #
+# engine = create_engine(f"sqlite:///hospital.db")
+# Session = sessionmaker(bind=engine)
+# Base = declarative_base()
+# session = Session()
+#
+# # Создаем таблицу в базе данных
+#
+#
+# class Hospital(Base):
+#     __tablename__ = 'hospital'
+#
+#     id = Column(Integer, primary_key=True)
+#     country = Column(String(250), nullable=False)
+#     town = Column(String(250), nullable=False)
+#     name = Column(String(250), nullable=False)
+#     number = Column(String(250), nullable=False)
+#     number_hospital = Column(Integer)
+#
+#     def __init__(self, country, town, name, number, number_hospital):
+#         self.country = country
+#         self.town = town
+#         self.name = name
+#         self.number = number
+#         self.number_hospital = number_hospital
+#
+#     def __repr__(self):
+#         return f"Больница (Страна: {self.country}, Город: {self.town}, Название: {self.name}, " \
+#                f"Номер телефона: {self.number}, Номер больницы: {self.number_hospital})"
+#
+#
+# Base.metadata.create_all(engine)
+# faker = Faker('ru_RU')
+# session.commit()
+#
+# # Заполняем таблицу
+#
+# group_list = ['Областная больница', 'Больница имени Лазарева', 'Больница имени Бушева', 'Детская больница']
+#
+# for _ in range(10):
+#     country = faker.country()
+#     town = faker.city()
+#     name = faker.random.choice(group_list)
+#     number = faker.phone_number()
+#     number_hospital = faker.random.randint(1, 25)
+#     hospital = Hospital(country, town, name, number, number_hospital)
+#     session.add(hospital)
+#
+# session.commit()
+# session.close()
+
+# # 1.Ввывести всю таблицу в консоль
+#
+# for it in session.query(Hospital):
+#     print(it)
+# print('*' * 50)
+#
+# # 2.Ввывести все страны, где находятся таблицы
+#
+# for it in session.query(Hospital):
+#     print(it.country)
+# print('*' * 50)
+#
+# # 3.Ввывести всю информацию о больницах, где номер больницы больше 10
+#
+# for it in session.query(Hospital).filter(Hospital.number_hospital > 10):
+#     print(it)
+# print('*' * 50)
+#
+# # 4.Ввывести всю информацию о больницах, которые находятся в России
+#
+# for it in session.query(Hospital).filter(Hospital.country == "Россия"):
+#     print(it)
+# print('*' * 50)
+#
+# # 5.Ввывести всю информацию о больницах, имена стран которых начинаются на С
+#
+# for it in session.query(Hospital).filter(Hospital.country.like('С%')):
+#     print(it)
+# print('*' * 50)
+#
+# # 6.Ввывести всю информацию о детских больницах, которые находятся в России или Греции
+#
+# for it in session.query(Hospital).filter(and_(Hospital.country.in_(['Россия', 'Греция']),
+#                                               Hospital.name == "Детская больница")):
+#     print(it)
+# print('*' * 50)
+#
+# # 7.Ввывести всю информацию о больницах, где номер больницы от 5 до 7 включительно
+#
+# for it in session.query(Hospital).filter(Hospital.number_hospital.between(5,7)):
+#     print(it)
+# print('*' * 50)
+#
+# # 8.Ввывести все страны и города, где находятся больницы с сортировкой по стране
+#
+# for it in session.query(Hospital.country, Hospital.town).order_by(Hospital.country):
+#     print(it)
+# print('*' * 50)
+#
+# # 9.Ввывести все телефоны тех больниц, которые начинаются с 8
+#
+# for it in session.query(Hospital.name, Hospital.number).filter(Hospital.number.like("8%")):
+#     print(it)
+# print('*' * 50)
+#
+# # 10.Ввывести сколько всего областных больниц
+#
+# print(session.query(Hospital).filter(Hospital.name == "Областная больница").count())
+# print('*' * 50)
 
 
-class Parser:
-    html = ""
-    res = dict()
-
-    def __init__(self, url):
-        self.url = url
-
-    def get_html(self):
-        req = requests.get(self.url).text
-        self.html = BeautifulSoup(req, 'lxml')
-
-    @staticmethod
-    def refined(price):
-        return re.sub(r"\D+", "", price)
-
-    def parsing(self):
-        block = self.html.find_all('article')
-        for item in block:
-            name = item.find('div', class_='product-title__head').text.strip()
-            try:
-                author = item.find('div', class_="product-title__author").text.strip()
-            except AttributeError:
-                author = ''
-            try:
-                price = item.find('div', class_="product-price__value product-price__value--discount").text.strip()
-            except AttributeError:
-                try:
-                    price = item.find('div', class_="product-price__value").text.strip()
-                except AttributeError:
-                    price = ''
-            int_price = self.refined(price)
-
-            self.res = {
-                'name': name,
-                'author': author,
-                'price': int_price
-            }
-            self.save(self.res)
-
-    @staticmethod
-    def save(lst):
-        with open('books.csv', 'a') as f:
-            writer = csv.writer(f, delimiter=';', lineterminator='\r')
-            writer.writerow((lst['name'], lst['author'], lst['price']))
-
-    def run(self):
-        self.get_html()
-        self.parsing()
-
-
-def main():
-    for i in range(1, 7):
-        if i == 1:
-            pars = Parser('https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721')
-        else:
-            pars = Parser(f'https://www.chitai-gorod.ru/collections/strana-koshmarov-detskie-uzhastiki-4878721?page={i}')
-        pars.run()
-
-
-if __name__ == '__main__':
-    main()
