@@ -7,9 +7,9 @@
 <div class="flash {{ cat }}">{{ msg }}</div>
 {% endfor %}
 
-<form action="{{ url_for('add_post') }}" method="post">
-  <p>Название статьи: <input type="text" name="name" required></p>
-  <p>URL статьи: <input type="text" name="url" required></p>
+<form action="{{ url_for('add_travel') }}" method="post">
+  <p>Название путевки: <input type="text" name="name" required></p>
+  <p>Стоимость: <input type="text" name="price" required></p>
   <p><textarea name="post" cols="40" rows="7"></textarea></p>
   <p><input type="submit" value="Добавить"></p>
 </form>

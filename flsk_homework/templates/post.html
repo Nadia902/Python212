@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<p>{{ price }} руб/мес</p>
+{{ post|safe }}
+
+{% endblock %}
