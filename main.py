@@ -7754,7 +7754,7 @@ import sqlite3
 #
 # print(msg)
 
-from jinja2 import Environment, FileSystemLoader
+# from jinja2 import Environment, FileSystemLoader
 
 #
 # persons = [
@@ -7772,3 +7772,7 @@ from jinja2 import Environment, FileSystemLoader
 # msg = tm.render(list_table=subs)
 #
 # print(msg)
+
+a = 10
+b = 5
+print(a = b)
