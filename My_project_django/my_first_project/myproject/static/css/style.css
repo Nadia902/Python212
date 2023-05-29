@@ -1,5 +1,5 @@
 body{
-    background: lightyellow;
+    background: lightcyan;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .container{
@@ -10,8 +10,15 @@ body{
     text-align: center;
 }
 .container form, .container h2{
-    background: lightgreen;
+    background: lightseagreen;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 6px;
+}
+.info{
+    width: 1200px;
+    margin: 0 auto;
+}
+.info h1{
+    text-align: center;
 }
