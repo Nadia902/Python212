@@ -10,14 +10,15 @@
 <body>
     <div class="menu">
         <div class="wrap">
-            <div class="logo">
-                <a href="{% url 'index' %}"><img src="{% static 'skills/logo.png' %}"></a>
+            <div class="two">
+                <div class="logo">
+                    <a href="{% url 'index' %}"><img src="{% static 'skills/logo.png' %}"></a>
+                </div>
+                <ul class="one">
+                    <li><a href="{% url 'index' %}"><b>Главная</b></a></li>
+                    <li><a href="{% url 'blogs' %}"><b>Блог</b></a></li>
+                </ul>
             </div>
-            <ul>
-                <li><a href="{% url 'index'%}">Главная</a></li>
-                <li><a href="{% url 'blogs'%}">Блог</a></li>
-                <li><a href="{% static 'skills/resume.pdf' %}"></a></li>
-            </ul>
         </div>
     </div>
   <div class="content">
