@@ -2,12 +2,13 @@
 
 {% block content2 %}
 
-<h1>Задачи:</h1>
+<h1>Завершено:</h1>
 
 <ul>
     {% for todo in todos %}
     <li>
         <a href="{% url 'viewtodo' todo.id %}">
+            <div class="left">
             {% if todo.important %}
             <b>{{ todo.title }}</b>
             {% else %}
@@ -17,6 +18,10 @@
             {% if todo.memo %}
             - {{ todo.memo }}
             {% endif %}
+            </div>
+            <div class="right">
+            {{ todo.date_completed|date:'M j Y H:i' }}
+            </div>
         </a>
     </li>
     {% endfor %}
