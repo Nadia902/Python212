@@ -1,0 +1,147 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="BI Portal">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!--    <link rel="apple-touch-startup-image" href="images/startup.png"> -->
+
+    <link rel="apple-touch-icon" href="images/C64x64.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/C76x76.png" >
+    <link rel="apple-touch-icon" sizes="120x120" href="images/C120x120.png" >
+    <link rel="apple-touch-icon" sizes="152x152" href="images/C152x152.png" >
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="keywords" content="business intelligence, olap, reporting, репортинг, бизнес анализ, генератор отчетов, аналитическая программа, аналитичекская платформа, отчеты предприятий, финансовый отчет, финансовая отчетность, анализ отчетности, статистическая отчетность, финансовый результат, отчетность организаций, отчетность предприятия, контур, аналитическая платформа контур ">
+    <meta name="gwt:property" content="locale=ru">
+
+    <link type="image/x-icon" href="images/C16x16.png" rel="icon">
+<link rel="shortcut icon" href="images/C16x16.png">
+<link rel="icon" href="images/C16x16.png">
+
+    <title>BI Portal</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/ddb.css?6">
+     <link rel="stylesheet" href="css/panojs.css">
+     <link rel="stylesheet" type="text/css" href="gxt/css/gxt-all.css" />
+     <style type="text/css">
+	 span {display:block;}
+	 li span {display:inline;}
+	 .cc-comment-panel {background-color:#ffffff;color:#000000;font-size:12pt;font-family:Roboto;padding:10px 30px;}
+.cc-comment-author{font-weight:bold;}
+.cc-comment-time {color:#4c4c4c;;}
+.cc-cur-comment {background-color:#b2b2b2;cursor:pointer;}
+         .breadcrumb > li + li:before {color:#666;font-family:FontAwesome;content: "\f054";}
+	 .breadcrumb {padding:6px 8px;}
+	 input[type=checkbox] { margin:0;}
+	 .cc-checkbox-menu { margin-left:0px; padding-left:10px;}
+	 .cc-checkbox-menu span { padding-left:10px;padding-right:10px;}
+     </style>
+
+     <script  type="text/javascript" language="javascript" src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+     <script type="text/javascript" language="javascript" src="js/ddb_msg_ru.js"></script>
+
+    <link href="css/css.css?2" rel="stylesheet">
+		
+    <script type="text/javascript" language="javascript" src="ddb/ddb.nocache.js"></script> 
+    <script type="text/javascript" language="javascript" src="js/html2canvas.js"></script> 
+    <script type="text/javascript" language="javascript" src="js/ddb.js?1"></script> 
+    <script type="text/javascript" src="js/PanoJS.js"></script>
+    <script type="text/javascript" src="js/tiles.js?3"></script>
+    <script type="text/javascript" src="js/echarts.min.js?156"></script>
+    <script type='text/javascript' src="js/echarts-wordcloud.min.js?3"></script>
+    <script type='text/javascript' src="js/moment-with-locales.min.js"></script>
+    <script type='text/javascript' src="js/ecStat.min.js"></script>
+    <script type='text/javascript' src="js/echarts-functions.min.js?202"></script>
+    <script type='text/javascript' src="js/d3-venn.min.js?2"></script>
+    <script type='text/javascript' src="js/d3.min.js?2"></script>
+    <script type="text/javascript" src="js/d3.v5.min.js"></script>
+    <script type="text/javascript" src="js/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="js/colorbrewer.v1.min.js"></script>
+    <script type="text/javascript" src="js/world-110m.v1.js"></script>
+    <script type="text/javascript" src="js/russia_png.js"></script>
+    <script type="text/javascript" src="js/russia_1e-7sr.js"></script>
+    <script type="text/javascript" src="js/NE1_50M_SR_png.js"></script>
+    <script type="text/javascript" src="js/biportal.js"></script>
+
+    <script type="text/javascript" src="js/EchartsLayer.min.js"></script>
+    <script type="text/javascript" src="js/osm-russia-boundary.js?10"></script>
+    <script type="text/javascript" src="js/world-boundary.js?11"></script>
+    <script type="text/javascript" src="js/format.js?12"></script>
+    <script type="text/javascript" src='js/mapbox-gl.js?2'></script>
+    <link href="css/mapbox-gl.css" rel='stylesheet' />
+
+    <script type="text/javascript" src="js/fin/olap.js"></script>
+    <script type="text/javascript" src="js/fin/jsTifier.js"></script>
+    <script type="text/javascript" src="js/fin/fin-hypergrid.min.js"></script>
+    <script type="text/javascript" src="js/fin/PerspectiveDataModel.js"></script>
+    <script type="text/javascript" src="js/fin/perspective-plugin.js"></script>
+    <script type="text/javascript" src="js/fin/hypergrid-tree-cell-renderer.js"></script>
+    <script type="text/javascript" src="js/fin/groupedHeaderPlugin.js"></script>
+    <script type="text/javascript" src="js/fin/fin-style.js"></script>
+
+	
+	
+
+    <script type='text/javascript'>
+
+
+var DDBDebugMode = false; 
+var DDBClientLog = "html"; 
+var CC_PP = true; 
+var CC_WL = false; 
+var CC_UL = ""; 
+var CC_CL = true; 
+var CC_CR = false; 
+var CC_UN = "guest"; 
+var CC_CSM = false;
+</script>
+    
+<script type='text/javascript'>
+var  CBITouchDevice = false;
+var  CBIPhoneDevice = false;
+var CBIMode = "packages";
+var CBIForm = "tree";
+var CBITreeMargin = 50;
+var CBITab = false;
+var CBICubeCacheMode = 1;
+var BIJsp = "contourbi.jsp";
+var CBIPageID = "1";
+var CBIRfct = false;
+    </script>
+
+
+</head>
+
+  <body>
+<!-- 	 -->
+
+<!--
+<div id="cc-loading" class="cc-loading-indicator" >
+         <img src="images/firstload.gif" width="64" height="64"/>
+</div>
+-->
+
+<div id="cc-loading">
+  <div class="l_square"><span></span><span></span><span></span></div>
+  <div class="l_square"><span></span><span></span><span></span></div>
+  <div class="l_square"><span></span><span></span><span></span></div>
+  <div class="l_square"><span></span><span></span><span></span></div>
+</div>
+<!-- -->
+    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
+<div id="cbi_tree"></div> 
+
+</body>
+</html>
+
+

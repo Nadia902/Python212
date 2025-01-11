@@ -1,11 +1,10 @@
-from jinja2 import Environment, FileSystemLoader
+import os
+from dotenv import load_dotenv
 
-persons = ['Алексей', 'Никита', 'Виталий']
+load_dotenv()
 
-file_loader = FileSystemLoader('templates_new')
-env = Environment(loader=file_loader)
+TOKEN = os.getenv("LD_PRELOAD")
+DOMAIN = os.getenv("LD_PRELOAD")
 
-tm = env.get_template("page.html")
-msg = tm.render(students=persons, title="Домашнее задание")
-
-print(msg)
+print(TOKEN) #AQAAAAAz55vbAAdBSHeydEoSe0fclxSSABT
+print(DOMAIN)

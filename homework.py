@@ -75,35 +75,35 @@
 
 #  --------homework19-------------
 
-# from random import randint
-#
-#
-# def binary_search(s, item):
-#     found = False
-#     first = 0
-#     last = len(s) - 1
-#     found = False
-#     while first <= last and not found:
-#         midpoint = (first + last) // 2
-#         if s[midpoint] == item:
-#             found = True
-#         else:
-#             if item < s[midpoint]:
-#                 last = midpoint - 1
-#             else:
-#                 first = midpoint + 1
-#
-#     return found
-#
-#
-# a = [randint(1, 100) for i in range(10)]
-# print(a)
-# a.sort()
-# n = int(input("Введите число: "))
-# if binary_search(a, n):
-#     print(f"Число {n} в списке присутствует")
-# else:
-#     print(f"Число {n} в списке отсутствует")
+from random import randint
+
+
+def binary_search(s, item):
+    found = False
+    first = 0
+    last = len(s) - 1
+    found = False
+    while first <= last and not found:
+        midpoint = (first + last) // 2
+        if s[midpoint] == item:
+            found = True
+        else:
+            if item < s[midpoint]:
+                last = midpoint - 1
+            else:
+                first = midpoint + 1
+
+    return found
+
+
+a = [randint(1, 100) for i in range(10)]
+print(a)
+a.sort()
+n = int(input("Введите число: "))
+if binary_search(a, n):
+    print(f"Число {n} в списке присутствует")
+else:
+    print(f"Число {n} в списке отсутствует")
 
 
 #  --------homework20-------------
@@ -1206,31 +1206,31 @@
 
 # -------------homework61----------
 # ------------1------------
-from jinja2 import Template
-
-lst = [
-    {'href': '/index', 'text': 'Главная'},
-    {'href': '/news', 'text': 'Новости'},
-    {'href': '/about', 'text': 'О компании'},
-    {'href': '/shop', 'text': 'Магазин'},
-    {'href': '/contacts', 'text': 'Контакты'},
-]
-
-link = """<ul>
-{% for l in lst -%}
-{% if l.text == 'Главная' -%}
-    <li><a href="{{ l['href'] }}" class="active">{{ l['text'] }}</a></li>
-{% else -%}
-    <li><a href="{{ l['href'] }}">{{ l['text'] }}</a></li>
-{% endif -%}
-{% endfor -%}
-</ul>
-"""
-
-tm = Template(link)
-msg = tm.render(lst=lst)
-
-print(msg)
+# from jinja2 import Template
+#
+# lst = [
+#     {'href': '/index', 'text': 'Главная'},
+#     {'href': '/news', 'text': 'Новости'},
+#     {'href': '/about', 'text': 'О компании'},
+#     {'href': '/shop', 'text': 'Магазин'},
+#     {'href': '/contacts', 'text': 'Контакты'},
+# ]
+#
+# link = """<ul>
+# {% for l in lst -%}
+# {% if l.text == 'Главная' -%}
+#     <li><a href="{{ l['href'] }}" class="active">{{ l['text'] }}</a></li>
+# {% else -%}
+#     <li><a href="{{ l['href'] }}">{{ l['text'] }}</a></li>
+# {% endif -%}
+# {% endfor -%}
+# </ul>
+# """
+#
+# tm = Template(link)
+# msg = tm.render(lst=lst)
+#
+# print(msg)
 
 # ------------2------------
 
