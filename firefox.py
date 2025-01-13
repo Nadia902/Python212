@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
-from dotenv import load_dotenv
 import time
 import os
 import re
@@ -16,26 +15,14 @@ def web_save():
     profile.set_preference("security.enterprise_roots.enabled", True)
     driver = webdriver.Firefox(options=options)
     driver.get("https://bi.gks.ru/biportal/contourbi.jsp?allsol=1&solution=Dashboard&project=%2FDashboard%2Ftrade")
-    # делаем задержку выполнения кода, так как сайт является динамическим и код выполняется быстрее,
-    # чем прогружаются элементы html
-    try:
-        time.sleep(3)
-        clickable = driver.find_element(By.XPATH, '//*[@id="x-auto-0__x-auto-0_x-auto-18"]/table/tbody/tr/td[2]/img')
-
-    except:
-        time.sleep(10)
-        clickable = driver.find_element(By.XPATH, '//*[@id="x-auto-0__x-auto-0_x-auto-18"]/table/tbody/tr/td[2]/img')
-    clickable.click()
     driver.implicitly_wait(10)
-    clickable = driver.find_element(By.XPATH, '//*[@id="x-auto-0__x-auto-0_x-auto-91"]/table/tbody/tr/td[5]/span/span')
+    clickable = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/div/table/tbody/tr/td[2]/img')
     clickable.click()
-    clickable = driver.find_element(By.XPATH, '//*[@id="x-auto-100__x-auto-96"]/a[2]/em/span/span')
+    clickable = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/div[2]/div[2]/div/table/tbody/tr/td[5]/span/span')
     clickable.click()
-    try:
-        clickable = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div[2]/div/table/tbody/tr[2]/td/div/div[2]/div[2]/div/div[2]/table/tbody/tr[2]/td/div/div[2]/div[1]/div/div/div[2]/table/tbody/tr[1]/td/div/table/tbody/tr/td[2]/div/span')
-    except:
-        time.sleep(3)
-        clickable = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div[2]/div/table/tbody/tr[2]/td/div/div[2]/div[2]/div/div[2]/table/tbody/tr[2]/td/div/div[2]/div[1]/div/div/div[2]/table/tbody/tr[1]/td/div/table/tbody/tr/td[2]/div/span')
+    clickable = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div[2]/div/table/tbody/tr[2]/td/div/div[1]/div[1]/ul/li[3]/a[2]/em/span/span')
+    clickable.click()
+    clickable = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[1]/div[2]/div/table/tbody/tr[2]/td/div/div[2]/div[2]/div/div[2]/table/tbody/tr[2]/td/div/div[2]/div[1]/div/div/div[2]/table/tbody/tr[1]/td/div/table/tbody/tr/td[2]/div/span')
     clickable.click()
     clickable = driver.find_element(By.XPATH, '/html/body/div[5]/div/div[11]/div/table/tbody/tr/td[5]/div/em/button/img')
     clickable.click()
